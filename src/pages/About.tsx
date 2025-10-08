@@ -1,5 +1,12 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import KlangRiverFestival from "./klangRiverFestivalLogo.png";
+import TeamPhoto from "./TeamPhoto.jpg";
+import ProfessorChong from "./ProfessorChong.jpeg";
+import Pason from "./PasonPhoto.jpg";
+import ShangPing from "./ShangPingPhoto.jpg";
+import Stewart from "./StewartPhoto.jpg";
+import WJ from "./WJPhoto.jpg";
 
 const About = () => {
   return (
@@ -10,12 +17,12 @@ const About = () => {
         <section className="mb-16">
           <h1 className="text-4xl font-bold mb-8 text-center">Klang River Festival Organization</h1>
           
-          <div className="max-w-3xl mx-auto mb-8">
-            <div className="bg-muted rounded-lg aspect-video flex items-center justify-center overflow-hidden mb-6">
+          <div className="max-w-md mx-auto mb-8">
+            <div className="bg-muted rounded-lg flex items-center justify-center overflow-hidden mb-6">
               <img 
-                src="/api/placeholder/900/500?text=Klang River Festival"
+                src={KlangRiverFestival}
                 alt="Klang River Festival Organization"
-                className="w-full h-full object-cover"
+                className="w-full h-auto object-contain"
               />
             </div>
           </div>
@@ -38,7 +45,7 @@ const About = () => {
           <div className="max-w-3xl mx-auto mb-8">
             <div className="bg-muted rounded-lg aspect-video flex items-center justify-center overflow-hidden mb-6">
               <img 
-                src="/api/placeholder/900/500?text=UCSI IDP Team"
+                src={TeamPhoto}
                 alt="UCSI IDP Team AURA"
                 className="w-full h-full object-cover"
               />
@@ -68,12 +75,12 @@ const About = () => {
                 <div className="text-center">
                   <div className="w-40 h-40 bg-muted rounded-full overflow-hidden mb-4 mx-auto border-4 border-primary">
                     <img 
-                      src="/api/placeholder/200/200?text=Supervisor"
+                      src={ProfessorChong}
                       alt="Supervisor"
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <h5 className="font-bold text-lg">Dr. Supervisor Name</h5>
+                  <h5 className="font-bold text-lg">Assistant Professor Ir Ts Dr Chong Kim Soon</h5>
                   <p className="text-sm text-muted-foreground">Project Supervisor</p>
                 </div>
               </div>
@@ -86,49 +93,53 @@ const About = () => {
                 <div className="text-center">
                   <div className="w-32 h-32 bg-muted rounded-full overflow-hidden mb-3 mx-auto border-2 border-accent">
                     <img 
-                      src="/api/placeholder/200/200?text=Student 1"
+                      src={Pason}
                       alt="Student 1"
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <h5 className="font-semibold">Student Name 1</h5>
-                  <p className="text-xs text-muted-foreground">Team Member</p>
+                  <h5 className="font-semibold">Pason Cheam Tung Huay</h5>
+                  <h5 className="font-semibold">1002163305</h5>
+                  <p className="text-xs text-muted-foreground"><b>Project Engineer (Group Leader)</b></p>
                 </div>
                 
                 <div className="text-center">
                   <div className="w-32 h-32 bg-muted rounded-full overflow-hidden mb-3 mx-auto border-2 border-accent">
                     <img 
-                      src="/api/placeholder/200/200?text=Student 2"
+                      src={ShangPing}
                       alt="Student 2"
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <h5 className="font-semibold">Student Name 2</h5>
-                  <p className="text-xs text-muted-foreground">Team Member</p>
+                  <h5 className="font-semibold">Ng Shang Ping</h5>
+                  <h5 className="font-semibold">1002267730</h5>
+                  <p className="text-xs text-muted-foreground"><b>Sales Engineer</b></p>
                 </div>
                 
                 <div className="text-center">
                   <div className="w-32 h-32 bg-muted rounded-full overflow-hidden mb-3 mx-auto border-2 border-accent">
                     <img 
-                      src="/api/placeholder/200/200?text=Student 3"
+                      src={Stewart}
                       alt="Student 3"
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <h5 className="font-semibold">Student Name 3</h5>
-                  <p className="text-xs text-muted-foreground">Team Member</p>
+                  <h5 className="font-semibold">Tan Kai Xi</h5>
+                  <h5 className="font-semibold">1002162289</h5>
+                  <p className="text-xs text-muted-foreground"><b>Hardware Engineer</b></p>
                 </div>
                 
                 <div className="text-center">
                   <div className="w-32 h-32 bg-muted rounded-full overflow-hidden mb-3 mx-auto border-2 border-accent">
                     <img 
-                      src="/api/placeholder/200/200?text=Student 4"
+                      src={WJ}
                       alt="Student 4"
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <h5 className="font-semibold">Student Name 4</h5>
-                  <p className="text-xs text-muted-foreground">Team Member</p>
+                  <h5 className="font-semibold">Tee Wei Jian</h5>
+                  <h5 className="font-semibold">1002163325</h5>
+                  <p className="text-xs text-muted-foreground"><b>Software Engineer</b></p>
                 </div>
               </div>
             </div>

@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
+import AuraByteLogo from "./AuraByteLogo.png";
 
 const Navigation = () => {
   const location = useLocation();
@@ -22,12 +23,12 @@ const Navigation = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-50 h-50 rounded-lg overflow-hidden flex items-center justify-center">
+            <div className="w-14 h-14 rounded-lg overflow-hidden flex items-center justify-center">
                 <img 
-                  src="AuraByteLogo.png" 
+                  src={AuraByteLogo} 
                   alt="AURA Logo" 
                   className="w-full h-full object-contain"
-                  width="50" height="60"
+                  
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.style.display = 'none';
@@ -38,7 +39,7 @@ const Navigation = () => {
                 <span className="text-primary-foreground font-bold text-sm">AURA</span>
               </div>
             </div>
-            <span className="text-2xl font-bold tracking-tight">AURA</span>
+            <span className="text-2xl font-bold tracking-tight">Project AURA</span>
           </Link>
           
           {/* Desktop Navigation */}
