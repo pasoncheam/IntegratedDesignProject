@@ -1,0 +1,80 @@
+import { Link, useLocation } from "react-router-dom";
+import { cn } from "@/lib/utils";
+import { Menu, Droplets } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useState } from "react";
+
+const Navigation = () => {
+  const location = useLocation();
+  const [open, setOpen] = useState(false);
+  
+  const isActive = (path: string) => location.pathname === path;
+  
+  const navLinks = [
+    { path: "/", label: "Home" },
+    { path: "/gallery", label: "Gallery" },
+    { path: "/information", label: "Information" },
+    { path: "/about", label: "About us" },
+  ];
+  
+  return (
+    <nav className="border-b border-border bg-background sticky top-0 z-50 shadow-sm">
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <Droplets className="w-6 h-6 text-primary-foreground" />
+            </div>
+            <span className="text-2xl font-bold tracking-tight">AURA</span>
+          </Link>
+          
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-2">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={cn(
+                  "px-6 py-2 rounded-full transition-all duration-200 font-medium",
+                  isActive(link.path)
+                    ? "bg-secondary text-secondary-foreground"
+                    : "hover:bg-muted"
+                )}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+          
+          {/* Mobile Navigation */}
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger className="md:hidden">
+              <Menu className="h-6 w-6" />
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[250px]">
+              <div className="flex flex-col gap-4 mt-8">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      "px-6 py-3 rounded-full transition-all duration-200 font-medium text-center",
+                      isActive(link.path)
+                        ? "bg-secondary text-secondary-foreground"
+                        : "hover:bg-muted"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Navigation;
