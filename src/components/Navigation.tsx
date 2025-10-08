@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Menu, Droplets } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 
@@ -22,8 +22,21 @@ const Navigation = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <Droplets className="w-6 h-6 text-primary-foreground" />
+            <div className="w-50 h-50 rounded-lg overflow-hidden flex items-center justify-center">
+                <img 
+                  src="AuraByteLogo.png" 
+                  alt="AURA Logo" 
+                  className="w-full h-full object-contain"
+                  width="50" height="60"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  target.nextElementSibling?.classList.remove('hidden');
+                }}
+              />
+              <div className="w-full h-full bg-primary rounded-lg flex items-center justify-center hidden">
+                <span className="text-primary-foreground font-bold text-sm">AURA</span>
+              </div>
             </div>
             <span className="text-2xl font-bold tracking-tight">AURA</span>
           </Link>
