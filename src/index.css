@@ -50,25 +50,25 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 210 30% 8%;
-    --foreground: 210 20% 95%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 95%;
 
-    --card: 210 25% 12%;
-    --card-foreground: 210 20% 95%;
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 210 25% 12%;
-    --popover-foreground: 210 20% 95%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 200 95% 45%;
+    --primary: 217 91% 60%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 25% 18%;
-    --secondary-foreground: 210 20% 95%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 95%;
 
-    --muted: 210 25% 18%;
-    --muted-foreground: 210 15% 65%;
+    --muted: 0 0% 8%;
+    --muted-foreground: 0 0% 70%;
 
-    --accent: 180 85% 45%;
+    --accent: 45 100% 60%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 85% 55%;
@@ -77,16 +77,16 @@ All colors MUST be HSL.
     --success: 145 65% 45%;
     --success-foreground: 0 0% 100%;
 
-    --warning: 40 95% 60%;
-    --warning-foreground: 210 20% 15%;
+    --warning: 25 95% 60%;
+    --warning-foreground: 0 0% 100%;
 
-    --border: 210 25% 18%;
-    --input: 210 25% 18%;
-    --ring: 200 95% 45%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 217 91% 60%;
 
     --data-safe: 145 65% 45%;
     --data-danger: 0 85% 55%;
-    --data-bg: 210 25% 15%;
+    --data-bg: 0 0% 8%;
   }
 }
 

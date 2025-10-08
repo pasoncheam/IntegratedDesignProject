@@ -1,5 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import KlangRiver from "./KlangRiverPhoto.png";
+import TheSDGs from "./TheSDGs.png";
 
 const Information = () => {
   return (
@@ -8,12 +10,12 @@ const Information = () => {
       
       <main className="flex-1 container mx-auto px-4 py-8">
         <section className="mb-16">
-          <h1 className="text-4xl font-bold mb-8">Klang River</h1>
+          <h1 className="text-4xl font-bold mb-8">The Klang River</h1>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             <div className="bg-muted rounded-lg aspect-[4/3] flex items-center justify-center overflow-hidden">
               <img 
-                src="/api/placeholder/800/600?text=Klang River"
+                src={KlangRiver}
                 alt="Klang River"
                 className="w-full h-full object-cover"
               />
@@ -36,14 +38,15 @@ const Information = () => {
         </section>
         
         <section className="mb-16">
-          <h2 className="text-4xl font-bold mb-8">SDG</h2>
+          <h2 className="text-4xl font-bold mb-8">Sustainable Development Goals (SDGs)</h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             <div className="bg-muted rounded-lg aspect-[4/3] flex items-center justify-center overflow-hidden">
-              <div className="text-center p-8">
-                <div className="text-6xl mb-4">🌍</div>
-                <p className="text-xl font-bold">Sustainable Development Goals</p>
-              </div>
+            <img 
+                src={TheSDGs}
+                alt="The SDGs"
+                className="w-full h-full object-contain"
+              />
             </div>
             
             <div className="bg-data-bg rounded-lg p-8">

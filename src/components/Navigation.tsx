@@ -4,6 +4,7 @@ import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import AuraByteLogo from "./AuraByteLogo.png";
+import ThemeToggle from "./ThemeToggle";
 
 const Navigation = () => {
   const location = useLocation();
@@ -14,7 +15,7 @@ const Navigation = () => {
   const navLinks = [
     { path: "/", label: "Home" },
     { path: "/gallery", label: "Gallery" },
-    { path: "/information", label: "Information" },
+    { path: "/information", label: "Klang River" },
     { path: "/about", label: "About us" },
   ];
   
@@ -58,6 +59,7 @@ const Navigation = () => {
                 {link.label}
               </Link>
             ))}
+            <ThemeToggle />
           </div>
           
           {/* Mobile Navigation */}
@@ -82,6 +84,9 @@ const Navigation = () => {
                     {link.label}
                   </Link>
                 ))}
+                <div className="flex justify-center mt-4">
+                  <ThemeToggle />
+                </div>
               </div>
             </SheetContent>
           </Sheet>
