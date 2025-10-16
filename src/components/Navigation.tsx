@@ -14,6 +14,7 @@ const Navigation = () => {
   
   const navLinks = [
     { path: "/", label: "Home" },
+    { path: "/analytics", label: "Analytics" },
     { path: "/gallery", label: "Gallery" },
     { path: "/information", label: "Klang River" },
     { path: "/about", label: "About us" },

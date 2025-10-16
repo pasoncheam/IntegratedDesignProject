@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card";
+import rubbishPlaceholder from "../pages/rubbishPlaceholder.jpg";
 
 const RecentPhoto = () => {
   return (
@@ -7,7 +8,7 @@ const RecentPhoto = () => {
       
       <div className="bg-muted rounded-lg aspect-[4/3] flex items-center justify-center overflow-hidden">
         <img 
-          src="/api/placeholder/600/450" 
+          src={ rubbishPlaceholder } 
           alt="Recent photo from monitoring tower"
           className="w-full h-full object-cover"
         />

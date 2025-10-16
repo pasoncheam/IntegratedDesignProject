@@ -6,9 +6,9 @@ const Footer = () => {
           <div >
             <h3 className="font-bold mb-3 text-foreground text-xl">Related Links</h3>
             <div className="space-y-1 text-sm text-muted-foreground">
-              <a href="https://www.klangriverfestival.com/" className="block hover:text-primary transition-colors">
+              {/*<a href="https://www.klangriverfestival.com/" className="block hover:text-primary transition-colors">
                 <b>Klang River Festival</b>
-              </a>
+              </a>*/}
               <a href="https://ucsi.edu.my" className="block hover:text-primary transition-colors">
                 <b>UCSI University</b>
               </a>

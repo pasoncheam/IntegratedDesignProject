@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
+import rubbishPlaceholder from "./rubbishPlaceholder.jpg";
 
 const Gallery = () => {
   // Mock gallery data
@@ -22,7 +23,7 @@ const Gallery = () => {
             <Card key={photo.id} className="overflow-hidden group">
               <div className="bg-muted aspect-[4/3] flex items-center justify-center overflow-hidden">
                 <img 
-                  src={`/api/placeholder/600/450?text=Photo ${photo.id}`}
+                  src={rubbishPlaceholder}
                   alt={`Gallery photo ${photo.id}`}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />

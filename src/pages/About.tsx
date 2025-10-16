@@ -14,7 +14,7 @@ const About = () => {
       <Navigation />
       
       <main className="flex-1 container mx-auto px-4 py-8">
-        <section className="mb-16">
+        {/* <section className="mb-16">
           <h1 className="text-4xl font-bold mb-8 text-center">Klang River Festival Organization</h1>
           
           <div className="max-w-md mx-auto mb-8">
@@ -37,7 +37,7 @@ const About = () => {
               to celebrate the river's importance to our region.
             </p>
           </div>
-        </section>
+        </section> */}
         
         <section className="mb-16">
           <h2 className="text-4xl font-bold mb-8 text-center">UCSI IDP TEAM AURA</h2>
