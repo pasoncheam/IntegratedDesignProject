@@ -6,6 +6,7 @@ import { HashRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import Home from "./pages/Home";
 import Analytics from "./pages/Analytics";
+import Support from "./pages/Support";
 import Gallery from "./pages/Gallery";
 import Information from "./pages/Information";
 import About from "./pages/About";
@@ -23,6 +24,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/analytics" element={<Analytics />} />
+            <Route path="/support" element={<Support />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/information" element={<Information />} />
             <Route path="/about" element={<About />} />

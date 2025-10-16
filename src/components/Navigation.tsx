@@ -17,6 +17,7 @@ const Navigation = () => {
     { path: "/analytics", label: "Analytics" },
     { path: "/gallery", label: "Gallery" },
     { path: "/information", label: "Klang River" },
+    { path: "/support", label: "Support" },
     { path: "/about", label: "About us" },
   ];
   

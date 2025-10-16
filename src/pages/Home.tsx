@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import homeBackgroundImage from "./homeBackgroundImage.png";
 
 const Home = () => {
@@ -60,6 +61,29 @@ const Home = () => {
 							<h3 className="text-xl font-semibold mb-2">Community Impact</h3>
 							<p className="text-muted-foreground">
 								Learn how data supports safety, planning, and sustainability for Klang River.
+							</p>
+						</div>
+					</div>
+				</section>
+
+				<section className="border-t border-border">
+					<div className="container mx-auto px-4 py-12">
+						<h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-4 text-center">Introductory Video</h2>
+						<p className="text-muted-foreground text-center max-w-2xl mx-auto mb-6">
+							A quick introduction to Project AURA and how our river analytics work.
+						</p>
+						<div className="max-w-4xl mx-auto">
+							<AspectRatio ratio={16 / 9}>
+							<iframe
+								src="https://www.youtube.com/embed/LPiuKPEgd24"
+								title="Project AURA Intro Video"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowFullScreen
+								className="w-full h-full rounded-lg border"
+							></iframe>
+							</AspectRatio>
+							<p className="text-xs text-muted-foreground mt-2 text-center">
+								Replace <code>/intro.mp4</code> with your actual video file or hosting URL.
 							</p>
 						</div>
 					</div>
