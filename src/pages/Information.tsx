@@ -23,18 +23,15 @@ const Information = () => {
                 <h2 className="text-2xl font-bold">About the River</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                The Klang River is a vital waterway that flows through the heart of Malaysia's capital city.
-                Our monitoring system helps track water levels and environmental conditions to protect
-                communities and provide valuable data for researchers. The river plays a crucial role in
-                the region's ecosystem and flood management systems.
-              </p>
-              <p className="text-muted-foreground leading-relaxed mt-4">
-                Real-time monitoring helps authorities respond quickly to changing conditions and enables
-                better urban planning and environmental protection measures.
+                The Klang River (Sungai Klang) is a 120-kilometre river flowing through Selangor and Kuala Lumpur, Malaysia, before 
+                emptying into the Straits of Malacca near Port Klang. It holds historical importance as Kuala Lumpur was founded at 
+                the confluence of the Klang and Gombak rivers. Over the years, the river became polluted due to rapid urbanization 
+                and industrial waste. However, efforts such as the River of Life (ROL) project have been introduced to clean, restore, 
+                and beautify the river, turning parts of it especially near Masjid Jamek into attractive urban and tourism areas.
               </p>
             </div>
             <div className="rounded-2xl overflow-hidden shadow-xl border bg-muted transform rotate-1">
-              <div className="aspect-[4/3] w-full">
+              <div className="aspect-[2/1] w-full">
                 <img
                   src={KlangRiver}
                   alt="Klang River"
@@ -47,7 +44,7 @@ const Information = () => {
           {/* Row 2: Image card left, text card right (History) */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
             <div className="rounded-2xl overflow-hidden shadow-xl border bg-muted transform -rotate-1">
-              <div className="aspect-[4/3] w-full">
+              <div className="aspect-[2/1] w-full">
                 <img
                   src={KlangRiver}
                   alt="Historic Klang River"
@@ -60,18 +57,15 @@ const Information = () => {
                 <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border" aria-hidden>
                   {/* icon placeholder */}
                 </span>
-                <h2 className="text-2xl font-bold">History of the Klang River</h2>
+                <h2 className="text-2xl font-bold">Reviving the Klang River</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                The Klang River has shaped the growth of the Klang Valley for centuries, serving as a key
-                transportation and trade route that connected communities along its banks. Urbanization and
-                industrial activity increased through the 20th century, bringing challenges such as flooding
-                and pollution.
-              </p>
-              <p className="text-muted-foreground leading-relaxed mt-4">
-                Recent decades have seen revitalization efforts focused on flood mitigation, water quality
-                improvement, and habitat restoration. Today, real-time monitoring and community engagement
-                help safeguard the river while enabling sustainable development.
+                As the Klang River became a much of concern to the town in Kuala Lumpur, many initiatives have been made 
+                to reduce the pollution of the Klang River. These initiatives include SMART Tunnel Launch, River of Life 
+                Megaproject, River Three CPR Programme, and the most recent initiative of Ocean Cleanup Expansion and 
+                Coca-Cola Partnership in opening waste sorting facilities on Malaysia’s Klang River (Yahoo News, 2025). 
+                These initiatives not only help reduce the pollution, but it inspire other companies, NGOs, and volunteers 
+                to get involved in cleaning the Klang River.
               </p>
             </div>
           </div>

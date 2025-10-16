@@ -55,12 +55,12 @@ const About = () => {
           <div className="bg-data-bg rounded-lg p-8 max-w-4xl mx-auto mb-12">
             <h3 className="text-2xl font-bold mb-4 text-center">Our Team</h3>
             <p className="text-muted-foreground leading-relaxed text-center max-w-3xl mx-auto">
-              AURA (Automated Urban River Analytics) is an innovative project developed by the 
-              Interdisciplinary Project (IDP) team at UCSI University. Our multidisciplinary team 
-              combines expertise in engineering, environmental science, and data analytics to create 
-              cutting-edge monitoring solutions. We are passionate about using technology to address 
-              environmental challenges and provide valuable insights for researchers, policymakers, 
-              and the community.
+             Greetings fellow audience! We are AuraByte, a team of 4 computer engineering students from UCSI University.
+             The Autonomous Urban River Analyzer (AURA) prototype, is our project for our <i>Integrated Design Project (BER4023)</i> course.<br></br> <br></br>
+             We developed this website as a platform to view data collected by our prototype in order to perform flood risk analysis for flood alert,
+             and waste detection for monitoring the urban river condition, which in this case is the Klang River.<br></br> <br></br>
+             Other than river monitoring, the website also serves to boost community engagement by increase the awareness of the public on urban river
+             conditions. Showcasing the prototype also allows to inspire aspiring engineers in the community. We hope you enjoyed our work!
             </p>
           </div>
           
