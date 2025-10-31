@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import KlangRiver from "./KlangRiverPhoto.png";
+import revivedRiver from "./revivedRiver.png";
 import TheSDGs from "./TheSDGs.png";
 
 const Information = () => {
@@ -46,7 +47,7 @@ const Information = () => {
             <div className="rounded-2xl overflow-hidden shadow-xl border bg-muted transform -rotate-1">
               <div className="aspect-[2/1] w-full">
                 <img
-                  src={KlangRiver}
+                  src={revivedRiver}
                   alt="Historic Klang River"
                   className="w-full h-full object-cover"
                 />

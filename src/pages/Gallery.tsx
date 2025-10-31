@@ -2,11 +2,20 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card } from "@/components/ui/card";
 import rubbishPlaceholder from "./rubbishPlaceholder.jpg";
+import trash2 from "./trash2.png";
+import trash3 from "./trash3.png";
+import trash4 from "./trash4.png";
+import trash5 from "./trash5.png";
+import trash6 from "./trash6.png";
 
 const Gallery = () => {
+  // Array of different images for each photo
+  const images = [rubbishPlaceholder, trash2, trash3, trash4, trash5, trash6];
+  
   // Mock gallery data
   const photos = Array.from({ length: 6 }, (_, i) => ({
     id: i + 1,
+    image: images[i],
     date: new Date(Date.now() - i * 24 * 60 * 60 * 1000).toLocaleDateString(),
     time: new Date(Date.now() - i * 24 * 60 * 60 * 1000).toLocaleTimeString(),
   }));
@@ -23,7 +32,7 @@ const Gallery = () => {
             <Card key={photo.id} className="overflow-hidden group">
               <div className="bg-muted aspect-[4/3] flex items-center justify-center overflow-hidden">
                 <img 
-                  src={rubbishPlaceholder}
+                  src={photo.image}
                   alt={`Gallery photo ${photo.id}`}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />

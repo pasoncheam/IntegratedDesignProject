@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import homeBackgroundImage from "./homeBackgroundImage.png";
 import { Check } from "lucide-react";
+import conceptualImage from "./conceptualImage.png";
 
 const Home = () => {
 	return (
@@ -50,8 +51,11 @@ const Home = () => {
 					<div className="container mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 						<div className="overflow-hidden">
 							<AspectRatio ratio={3 / 3}>
-								<img src={ homeBackgroundImage } alt="AURA prototype" className="h-full w-full object-contain" />
+								<img src={ conceptualImage } alt="AURA prototype" className="h-full w-full object-contain" />
 							</AspectRatio>
+							<p className="text-sm text-muted-foreground -mt-[1px] ml-[110px] italic">
+								(Conceptual Image of AURA Prototype)
+							</p>
 						</div>
 
 						<div>
