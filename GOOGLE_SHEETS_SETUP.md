@@ -151,3 +151,4 @@ data.timestamp || Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 
 
 Your form submissions will now automatically appear in your Google Sheet. No email limits, completely free, and you can view all submissions in one place!
 
+

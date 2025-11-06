@@ -41,16 +41,6 @@ const EnquireNow = ({ defaultProduct = "AURA Prototype", triggerClassName }: Enq
 	const handleSubmit = async () => {
 		if (!validate()) return;
 		
-		// Check if Google Script URL is configured
-		if (GOOGLE_SCRIPT_URL === "https://script.google.com/macros/s/AKfycbzKy50RixlioNvBAQ0mwg2Ld-6DULbI6ocLXofVEI99Er246pTkFNY_69kQPvGfafWW/exec") {
-			toast({
-				title: "Configuration Error",
-				description: "Google Sheets integration is not configured. Please set up your Google Apps Script URL in the EnquireNow component.",
-				variant: "destructive",
-			});
-			return;
-		}
-
 		setIsSubmitting(true);
 
 		try {
