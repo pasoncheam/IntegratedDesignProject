@@ -6,6 +6,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import homeBackgroundImage from "./homeBackgroundImage.png";
 import { Check } from "lucide-react";
 import conceptualImage from "./conceptualImage.png";
+import EnquireNow from "@/components/EnquireNow";
 
 const Home = () => {
 	return (
@@ -36,14 +37,7 @@ const Home = () => {
 								AURA (Autonomous Urban River Analyzer): AI-Integrated Urban River Analyzer for Real-Time Environmental Sensing and Beautification
 							</p>
 						</div>
-						<div className="flex items-center justify-center gap-3 mt-6">
-							<Link to="/analytics">
-								<Button size="lg" className="px-8">View Analytics</Button>
-							</Link>
-							<Link to="/information">
-								<Button size="lg" variant="outline" className="px-8">Learn About Klang River</Button>
-							</Link>
-						</div>
+						
 					</div>
 				</section>
 
@@ -82,7 +76,13 @@ const Home = () => {
 									<div className="flex items-start gap-2"><Check className="h-5 w-5 mt-0.5" /><span>Use of renewable energy (Solar)</span></div>
 								</div>
 							</div>
-							<Link to="/support"><Button className="px-6">Support our project</Button></Link>
+							<div className="flex items-center gap-3">
+								<Link to="/support"><Button className="px-6">Support our project</Button></Link>
+								<div className="[&>button]:bg-red-600 [&>button]:hover:bg-red-700 [&>button]:text-white">
+									<EnquireNow defaultProduct="AURA Prototype" />
+								</div>
+							</div>
+							
 						</div>
 					</div>
 				</section>
