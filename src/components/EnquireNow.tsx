@@ -70,7 +70,7 @@ const EnquireNow = ({ defaultProduct = "AURA Prototype", triggerClassName }: Enq
 
 			toast({
 				title: "Enquiry Submitted!",
-				description: "Thank you for your enquiry. Your information has been recorded.",
+				description: "Thank you for your enquiry. We’ve received your information and will be in touch with you soon.",
 			});
 
 			// Close modal and reset form
