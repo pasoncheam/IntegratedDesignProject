@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import KlangRiver from "./KlangRiverPhoto.png";
-import revivedRiver from "./revivedRiver.png";
+import revivedRiver from "./NewwKlangRiverPicSketch.jpg";
 import TheSDGs from "./TheSDGs.png";
 
 const Information = () => {
@@ -51,6 +51,19 @@ const Information = () => {
                   alt="Historic Klang River"
                   className="w-full h-full object-cover"
                 />
+              </div>
+              <div className="p-3 bg-muted/50">
+                <p className="text-xs text-muted-foreground">
+                  Source:{" "}
+                  <a
+                    href="https://cilisos.my/for-7-years-the-govt-tried-turning-klang-river-into-a-tourist-spot-how-much-did-they-spend/"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="text-primary hover:underline"
+                  >
+                    CiliSos
+                  </a>
+                </p>
               </div>
             </div>
             <div className="rounded-2xl border bg-card text-card-foreground p-8 shadow-xl transform rotate-1">
