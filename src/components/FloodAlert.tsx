@@ -1,11 +1,13 @@
 import { Card } from "@/components/ui/card";
-import { useState, useEffect } from "react";
 
-const FloodAlert = () => {
-  // Mock data - in production this would come from your tower API
-  const [floodLevel, setFloodLevel] = useState<number>(2.5);
+type FloodAlertProps = {
+  waterLevel: number; // meters
+  timestamp?: number; // epoch ms or millis()
+};
+
+const FloodAlert = ({ waterLevel, timestamp }: FloodAlertProps) => {
   const dangerThreshold = 4.0;
-  const isDanger = floodLevel >= dangerThreshold;
+  const isDanger = waterLevel >= dangerThreshold;
   
   return (
     <section className="mb-12">
@@ -24,7 +26,7 @@ const FloodAlert = () => {
               <span className={`text-5xl font-bold ${
                 isDanger ? "text-destructive" : "text-success"
               }`}>
-                {floodLevel.toFixed(1)}m
+                {waterLevel.toFixed(1)}m
               </span>
             </div>
           </div>
@@ -42,7 +44,7 @@ const FloodAlert = () => {
           </div>
           
           <p className="mt-4 text-sm text-muted-foreground">
-            Threshold: {dangerThreshold}m • Last updated: {new Date().toLocaleString()}
+            Threshold: {dangerThreshold}m • Last updated: {timestamp ? new Date(timestamp >= 1_000_000_000_000 ? timestamp : timestamp).toLocaleString() : "—"}
           </p>
         </div>
       </Card>

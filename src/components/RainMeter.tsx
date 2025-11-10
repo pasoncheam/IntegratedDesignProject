@@ -1,9 +1,11 @@
 import { Card } from "@/components/ui/card";
 
-const RainMeter = () => {
-  // Mock data - in production this would come from your tower API
-  const rainfall = 12.5; // mm
-  const last24h = 48.2; // mm
+type RainMeterProps = {
+  rainfall: number; // mm current
+  last24h?: number; // optional aggregate
+};
+
+const RainMeter = ({ rainfall, last24h = 0 }: RainMeterProps) => {
   
   return (
     <Card className="p-6 h-full">
