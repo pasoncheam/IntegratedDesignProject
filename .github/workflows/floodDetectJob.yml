@@ -27,5 +27,5 @@ jobs:
       env:
         FIREBASE_KEY: ${{ secrets.FIREBASE_KEY }}
       run: |
-        python analysis_firebase_detailed.py
+        python analysis_firebase.py
 
