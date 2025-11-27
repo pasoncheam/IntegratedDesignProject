@@ -7,6 +7,7 @@ import homeBackgroundImage from "./homeBackgroundImage.png";
 import { Check } from "lucide-react";
 import conceptualImage from "./conceptualImage.png";
 import EnquireNow from "@/components/EnquireNow";
+import LocationMap from "@/components/LocationMap";
 
 const Home = () => {
 	return (
@@ -131,7 +132,11 @@ const Home = () => {
 							</p>*/}
 						</div>
 					</div>
+					
 				</section>
+
+				<LocationMap />
+				
 			</main>
 
 			<Footer />

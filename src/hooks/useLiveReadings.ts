@@ -5,6 +5,8 @@ import { onValue, ref } from "firebase/database";
 export type LiveReadings = {
 	temperature?: number; // degrees Celsius
 	humidity?: number;    // percent
+	rainfall?: number;    // millimeters
+	waterLevel?: number;  // centimeters or similar
 	timestamp?: number;   // ESP millis() or epoch ms
 };
 

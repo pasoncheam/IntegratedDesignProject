@@ -9,7 +9,7 @@ const RainMeter = ({ rainfall, last24h = 0 }: RainMeterProps) => {
   
   return (
     <Card className="p-6 h-full">
-      <h3 className="text-xl font-bold mb-4">Rain Meter</h3>
+      <h3 className="text-xl font-bold mb-4">Rain Meter Reading</h3>
       
       <div className="bg-data-bg rounded-lg p-8 text-center">
         <div className="mb-6">

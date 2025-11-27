@@ -11,7 +11,7 @@ const FloodAlert = ({ waterLevel, timestamp }: FloodAlertProps) => {
   
   return (
     <section className="mb-12">
-      <h2 className="text-3xl font-bold mb-6">Flood Alert</h2>
+      <h2 className="text-3xl font-bold mb-6">Water Level Reading</h2>
       
       <Card className={`p-8 text-center transition-all duration-500 ${
         isDanger 
@@ -43,9 +43,9 @@ const FloodAlert = ({ waterLevel, timestamp }: FloodAlertProps) => {
             {isDanger ? "⚠️ DANGER - Flood Warning" : "✓ SAFE - Normal Conditions"}
           </div>
           
-          <p className="mt-4 text-sm text-muted-foreground">
+          {/*<p className="mt-4 text-sm text-muted-foreground">
             Threshold: {dangerThreshold}m • Last updated: {timestamp ? new Date(timestamp >= 1_000_000_000_000 ? timestamp : timestamp).toLocaleString() : "—"}
-          </p>
+          </p>*/}
         </div>
       </Card>
     </section>

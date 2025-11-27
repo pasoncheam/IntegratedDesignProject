@@ -1,0 +1,21 @@
+# Ignore service account keys (never commit these!)
+serviceAccountKey.json
+*.json
+!requirements.txt
+
+# Ignore generated outputs (these go to public/analysis/)
+analysis_graph.png
+analysis_summary.json
+analysis_summary.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+

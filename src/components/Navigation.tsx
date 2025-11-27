@@ -14,8 +14,8 @@ const Navigation = () => {
   
   const navLinks = [
     { path: "/", label: "Home" },
-    { path: "/analytics", label: "Analytics" },
-    { path: "/gallery", label: "Gallery" },
+    { path: "/analytics", label: "Flood Risk Prediction" },
+    { path: "/gallery", label: "Waste Dectection" },
     { path: "/information", label: "Klang River" },
     { path: "/support", label: "Support" },
     { path: "/about", label: "About us" },

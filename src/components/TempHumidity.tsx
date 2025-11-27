@@ -15,7 +15,7 @@ function formatTimestamp(ts?: number) {
 const TempHumidity = ({ temperature, humidity, timestamp }: TempHumidityProps) => {
 	return (
 		<Card className="p-6 h-full">
-			<h3 className="text-xl font-bold mb-4">Environment</h3>
+			<h3 className="text-xl font-bold mb-4">Temperature and Humidity Reading</h3>
 			<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 				<div className="bg-data-bg rounded-lg p-6 text-center">
 					<div className="text-sm text-muted-foreground mb-1">Temperature</div>
@@ -32,9 +32,6 @@ const TempHumidity = ({ temperature, humidity, timestamp }: TempHumidityProps) =
 					</div>
 				</div>
 			</div>
-			<p className="text-xs text-muted-foreground mt-4">
-				Last update: {formatTimestamp(timestamp)}
-			</p>
 		</Card>
 	);
 };

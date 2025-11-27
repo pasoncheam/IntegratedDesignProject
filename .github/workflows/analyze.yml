@@ -1,0 +1,78 @@
+name: Automated Analysis
+
+on:
+  schedule:
+    - cron: "* * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: automated-analysis
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  run-analysis:
+    runs-on: ubuntu-latest
+
+    env:
+      FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install analysis dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f analysis/requirements.txt ]; then
+            pip install -r analysis/requirements.txt
+          else
+            pip install firebase_admin pandas matplotlib
+          fi
+
+      - name: Configure Firebase credentials
+        if: env.FIREBASE_SERVICE_ACCOUNT_JSON != ''
+        run: |
+          echo "$FIREBASE_SERVICE_ACCOUNT_JSON" > serviceAccountKey.json
+        shell: bash
+
+      - name: Run analysis script
+        run: |
+          python analysis/analyze.py
+
+      - name: Collect generated outputs
+        run: |
+          mkdir -p public/analysis
+          if [ -f analysis_graph.png ]; then
+            cp analysis_graph.png public/analysis/analysis_graph.png
+          fi
+          if [ -f analysis_summary.json ]; then
+            cp analysis_summary.json public/analysis/analysis_summary.json
+          fi
+          if [ -f analysis_summary.txt ]; then
+            cp analysis_summary.txt public/analysis/analysis_summary.txt
+          fi
+
+      - name: Commit and push updates
+        run: |
+          if git status --short public/analysis | grep .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add public/analysis
+            git commit -m "chore: update automated analysis artifacts"
+            git push
+          else
+            echo "No updates to commit."
+          fi
+
+
+
