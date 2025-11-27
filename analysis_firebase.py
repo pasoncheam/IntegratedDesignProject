@@ -5,18 +5,33 @@ from firebase_admin import credentials, db
 import joblib
 import numpy as np
 import pandas as pd
+import os
+import json
 
 # -------------------------------
 # Firebase Initialization
 # -------------------------------
+'''
 try:
     firebase_admin.get_app()
 except ValueError:
-    cred = credentials.Certificate("firebase_key.json")
+    cred = credentials.Certificate("")
     firebase_admin.initialize_app(cred, {
         "databaseURL": "https://aura-data-cb5bf-default-rtdb.asia-southeast1.firebasedatabase.app"
     })
+'''
+# Load Firebase key from environment variable
+firebase_key_json = os.environ.get("FIREBASE_KEY")
+if not firebase_key_json:
+    raise ValueError("FIREBASE_KEY not found in environment variables!")
 
+# Convert string to dictionary
+firebase_key_dict = json.loads(firebase_key_json)
+
+cred = credentials.Certificate(firebase_key_dict)
+firebase_admin.initialize_app(cred, {
+    "databaseURL": "https://aura-data-cb5bf-default-rtdb.asia-southeast1.firebasedatabase.app"
+})
 # -------------------------------
 # Load Model
 # -------------------------------
