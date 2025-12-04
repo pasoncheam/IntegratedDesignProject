@@ -444,19 +444,19 @@ const Analytics = () => {
 													}}
 													className="h-64"
 												>
-													<AreaChart data={chartData}>
+													<AreaChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
 														<CartesianGrid strokeDasharray="3 3" />
 														<XAxis
 															dataKey="label"
 															tickLine={false}
 															axisLine={false}
-															label={{ value: "Time", position: "insideBottomRight", offset: -5 }}
+															label={{ value: "Time", position: "insideBottomRight", offset: -10 }}
 														/>
 														<YAxis
-															unit={section.unit}
+															width={40}
 															tickLine={false}
 															axisLine={false}
-															label={{ value: section.unit, angle: -90, position: "insideLeft" }}
+															label={{ value: section.unit, angle: -90, position: "insideLeft", style: { textAnchor: 'middle' } }}
 														/>
 														<ChartTooltip content={<ChartTooltipContent />} />
 														{section.referenceLines?.map((refLine) => (
@@ -538,7 +538,7 @@ const Analytics = () => {
 							)}
 						</CardContent>
 					</Card>
-				</section>
+				</section >
 
 				<FloodAlert
 					waterLevel={typeof latestReading?.waterLevel === "number" ? latestReading.waterLevel : 0}
@@ -549,55 +549,57 @@ const Analytics = () => {
 					<RainMeter rainfall={typeof latestReading?.rainfall === "number" ? latestReading.rainfall : 0} />
 				</div>
 
-				{typeof latestReading?.temperature === "number" && typeof latestReading?.humidity === "number" ? (
-					<div className="mb-12 grid gap-4 md:grid-cols-2">
-						{/* Temperature card - warm/red accent (inspired by water level styling) */}
-						<Card className="bg-gradient-to-br from-red-700/6 to-red-500/4 rounded-2xl">
-							<CardHeader>
-								<CardTitle>Temperature Reading</CardTitle>
-								<p className="text-sm text-muted-foreground">Current ambient temperature</p>
-							</CardHeader>
-							<CardContent>
-								<div className="flex items-center justify-between">
-									<div>
-										<p className="text-sm text-slate-300">Temperature</p>
-										<p className="text-2xl font-semibold text-rose-400">
-											{typeof latestReading?.temperature === "number" ? `${latestReading.temperature} °C` : "—"}
-										</p>
+				{
+					typeof latestReading?.temperature === "number" && typeof latestReading?.humidity === "number" ? (
+						<div className="mb-12 grid gap-4 md:grid-cols-2">
+							{/* Temperature card - warm/red accent (inspired by water level styling) */}
+							<Card className="bg-gradient-to-br from-red-700/6 to-red-500/4 rounded-2xl">
+								<CardHeader>
+									<CardTitle>Temperature Reading</CardTitle>
+									<p className="text-sm text-muted-foreground">Current ambient temperature</p>
+								</CardHeader>
+								<CardContent>
+									<div className="flex items-center justify-between">
+										<div>
+											<p className="text-sm text-slate-300">Temperature</p>
+											<p className="text-2xl font-semibold text-rose-400">
+												{typeof latestReading?.temperature === "number" ? `${latestReading.temperature} °C` : "—"}
+											</p>
+										</div>
+										<div className="text-sm text-slate-400">
+											{new Date(latestReading?.timestamp ?? Date.now()).toLocaleTimeString()}
+										</div>
 									</div>
-									<div className="text-sm text-slate-400">
-										{new Date(latestReading?.timestamp ?? Date.now()).toLocaleTimeString()}
-									</div>
-								</div>
-							</CardContent>
-						</Card>
+								</CardContent>
+							</Card>
 
-						{/* Humidity card - cool/teal accent (inspired by rainfall styling) */}
-						<Card className="bg-gradient-to-br from-teal-700/6 to-emerald-500/4 rounded-2xl">
-							<CardHeader>
-								<CardTitle>Humidity Reading</CardTitle>
-								<p className="text-sm text-muted-foreground">Relative humidity</p>
-							</CardHeader>
-							<CardContent>
-								<div className="flex items-center justify-between">
-									<div>
-										<p className="text-sm text-slate-300">Humidity</p>
-										<p className="text-2xl font-semibold text-teal-300">
-											{typeof latestReading?.humidity === "number" ? `${latestReading.humidity}%` : "—"}
-										</p>
+							{/* Humidity card - cool/teal accent (inspired by rainfall styling) */}
+							<Card className="bg-gradient-to-br from-teal-700/6 to-emerald-500/4 rounded-2xl">
+								<CardHeader>
+									<CardTitle>Humidity Reading</CardTitle>
+									<p className="text-sm text-muted-foreground">Relative humidity</p>
+								</CardHeader>
+								<CardContent>
+									<div className="flex items-center justify-between">
+										<div>
+											<p className="text-sm text-slate-300">Humidity</p>
+											<p className="text-2xl font-semibold text-teal-300">
+												{typeof latestReading?.humidity === "number" ? `${latestReading.humidity}%` : "—"}
+											</p>
+										</div>
+										<div className="text-sm text-slate-400">
+											{new Date(latestReading?.timestamp ?? Date.now()).toLocaleTimeString()}
+										</div>
 									</div>
-									<div className="text-sm text-slate-400">
-										{new Date(latestReading?.timestamp ?? Date.now()).toLocaleTimeString()}
-									</div>
-								</div>
-							</CardContent>
-						</Card>
-					</div>
-				) : null}
-			</main>
+								</CardContent>
+							</Card>
+						</div>
+					) : null
+				}
+			</main >
 
 			<Footer />
-		</div>
+		</div >
 	);
 };
 
