@@ -53,11 +53,15 @@ def main():
     
     csv_file = "sensor_data.csv"
     
-    if os.path.exists(csv_file):
-        # Read existing data
-        df = pd.read_csv(csv_file)
-        # Append new data
-        df = pd.concat([df, new_row], ignore_index=True)
+    if os.path.exists(csv_file) and os.path.getsize(csv_file) > 0:
+        try:
+            # Read existing data
+            df = pd.read_csv(csv_file)
+            # Append new data
+            df = pd.concat([df, new_row], ignore_index=True)
+        except pd.errors.EmptyDataError:
+            # File exists but is empty
+            df = new_row
     else:
         # Create new DataFrame
         df = new_row
