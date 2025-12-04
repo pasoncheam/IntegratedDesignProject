@@ -447,11 +447,27 @@ const Analytics = () => {
 													<AreaChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
 														<CartesianGrid strokeDasharray="3 3" />
 														<XAxis
-															y={refLine.value}
-															label={{ value: refLine.label, position: "right", fill: refLine.color }}
-															stroke={refLine.color}
-															strokeDasharray="4 4"
+															dataKey="label"
+															tickLine={false}
+															axisLine={false}
+															label={{ value: "Time", position: "insideBottomRight", offset: -10 }}
 														/>
+														<YAxis
+															width={50}
+															tickLine={false}
+															axisLine={false}
+															tickFormatter={(value) => `${value}`}
+															label={{ value: section.unit, angle: -90, position: "insideLeft", style: { textAnchor: 'middle' } }}
+														/>
+														<ChartTooltip content={<ChartTooltipContent />} />
+														{section.referenceLines?.map((refLine) => (
+															<ReferenceLine
+																key={`${section.key}-${refLine.value}`}
+																y={refLine.value}
+																label={{ value: refLine.label, position: "right", fill: refLine.color }}
+																stroke={refLine.color}
+																strokeDasharray="4 4"
+															/>
 														))}
 														<Area
 															type="monotone"
