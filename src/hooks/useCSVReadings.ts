@@ -17,7 +17,11 @@ export const useCSVReadings = () => {
     useEffect(() => {
         const fetchCSV = async () => {
             try {
-                const response = await fetch('/sensor_data.csv');
+                // Use Vite's BASE_URL to handle deployment subpaths correctly
+                const baseUrl = import.meta.env.BASE_URL;
+                // Remove trailing slash from baseUrl if present to avoid double slashes
+                const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+                const response = await fetch(`${cleanBaseUrl}/sensor_data.csv`);
                 if (!response.ok) {
                     if (response.status === 404) {
                         // File might not exist yet if the action hasn't run
