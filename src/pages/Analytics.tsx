@@ -161,14 +161,18 @@ const Analytics = () => {
 			const XLSX = (mod && (mod as any).default) ? (mod as any).default : mod;
 
 			// Prepare rows from chartData (preserve types)
-			const rows = chartData.map((d) => ({
-				timestamp: new Date(d.timestamp).toISOString(),
-				label: d.label ?? "",
-				waterLevel: typeof d.waterLevel === "number" ? d.waterLevel : "",
-				rainfall: typeof d.rainfall === "number" ? d.rainfall : "",
-				humidity: typeof d.humidity === "number" ? d.humidity : "",
-				temperature: typeof d.temperature === "number" ? d.temperature : "",
-			}));
+			const rows = chartData.map((d) => {
+				const dateObj = new Date(d.timestamp);
+				const isValidDate = !isNaN(dateObj.getTime());
+				return {
+					timestamp: isValidDate ? dateObj.toISOString() : "Invalid Date",
+					label: d.label ?? "",
+					waterLevel: typeof d.waterLevel === "number" ? d.waterLevel : "",
+					rainfall: typeof d.rainfall === "number" ? d.rainfall : "",
+					humidity: typeof d.humidity === "number" ? d.humidity : "",
+					temperature: typeof d.temperature === "number" ? d.temperature : "",
+				};
+			});
 
 			// Create workbook
 			const wb = XLSX.utils.book_new();
@@ -411,11 +415,21 @@ const Analytics = () => {
 					</Card>
 
 					<Card>
-						<CardHeader>
-							<CardTitle>Environmental Trends</CardTitle>
-							<p className="text-sm text-muted-foreground">
-								Live graphs update automatically as new readings arrive.
-							</p>
+						<CardHeader className="flex flex-row items-start justify-between space-y-0">
+							<div className="space-y-1.5">
+								<CardTitle>Environmental Trends</CardTitle>
+								<p className="text-sm text-muted-foreground">
+									Live graphs update automatically as new readings arrive.
+								</p>
+							</div>
+							<button
+								type="button"
+								onClick={handleDownloadExcel}
+								disabled={downloadLoading}
+								className="inline-flex items-center rounded-md bg-slate-800 px-3 py-2 text-sm font-medium text-white hover:bg-slate-700 disabled:opacity-50"
+							>
+								{downloadLoading ? "Preparing..." : "Download Data"}
+							</button>
 						</CardHeader>
 						<CardContent>
 							{csvError ? (
