@@ -51,7 +51,12 @@ def main():
     # Create DataFrame for new data
     new_row = pd.DataFrame([sensor_reading])
     
-    csv_file = "sensor_data.csv"
+    # Ensure public directory exists
+    public_dir = "public"
+    if not os.path.exists(public_dir):
+        os.makedirs(public_dir)
+
+    csv_file = os.path.join(public_dir, "sensor_data.csv")
     
     if os.path.exists(csv_file) and os.path.getsize(csv_file) > 0:
         try:
