@@ -125,13 +125,12 @@ const Analytics = () => {
 		}
 
 		const mapped = filtered.map((reading) => {
-			const timestamp = typeof reading.timestamp === "number" ? reading.timestamp : now;
 			return {
-				label: new Date(timestamp).toLocaleTimeString(undefined, {
+				label: new Date(reading.timestamp).toLocaleTimeString(undefined, {
 					hour: "2-digit",
 					minute: "2-digit",
 				}),
-				timestamp,
+				timestamp: reading.timestamp,
 				waterLevel: typeof reading.waterLevel === "number" ? reading.waterLevel : undefined,
 				rainfall: typeof reading.rainfall === "number" ? reading.rainfall : undefined,
 				humidity: typeof reading.humidity === "number" ? reading.humidity : undefined,
@@ -139,21 +138,8 @@ const Analytics = () => {
 			};
 		});
 
-		// Keep visual behaviour identical — append a "now" point using the latest reading so the chart
-		// appears live when new readings arrive.
-		if (latestReading) {
-			mapped.push({
-				label: new Date(now).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" }),
-				timestamp: now,
-				waterLevel: typeof latestReading.waterLevel === "number" ? latestReading.waterLevel : undefined,
-				rainfall: typeof latestReading.rainfall === "number" ? latestReading.rainfall : undefined,
-				humidity: typeof latestReading.humidity === "number" ? latestReading.humidity : undefined,
-				temperature: typeof latestReading.temperature === "number" ? latestReading.temperature : undefined,
-			});
-		}
-
 		return mapped;
-	}, [readingsForCharts, latestReading]);
+	}, [readingsForCharts]);
 
 	// --- Environmental Insight (local heuristic) state & trigger logic ---
 	const [insight, setInsight] = useState<string | null>(null);
@@ -460,8 +446,18 @@ const Analytics = () => {
 												>
 													<AreaChart data={chartData}>
 														<CartesianGrid strokeDasharray="3 3" />
-														<XAxis dataKey="label" tickLine={false} axisLine={false} />
-														<YAxis unit={section.unit} tickLine={false} axisLine={false} />
+														<XAxis
+															dataKey="label"
+															tickLine={false}
+															axisLine={false}
+															label={{ value: "Time", position: "insideBottomRight", offset: -5 }}
+														/>
+														<YAxis
+															unit={section.unit}
+															tickLine={false}
+															axisLine={false}
+															label={{ value: section.unit, angle: -90, position: "insideLeft" }}
+														/>
 														<ChartTooltip content={<ChartTooltipContent />} />
 														{section.referenceLines?.map((refLine) => (
 															<ReferenceLine
