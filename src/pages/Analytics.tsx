@@ -457,7 +457,7 @@ const Analytics = () => {
 															tickLine={false}
 															axisLine={false}
 															tickFormatter={(value) => `${value}`}
-															label={{ value: section.unit, angle: -90, position: "insideLeft", style: { textAnchor: 'middle' } }}
+															label={{ value: `${section.title} (${section.unit})`, angle: -90, position: "insideLeft", style: { textAnchor: 'middle' } }}
 														/>
 														<ChartTooltip content={<ChartTooltipContent />} />
 														{section.referenceLines?.map((refLine) => (
