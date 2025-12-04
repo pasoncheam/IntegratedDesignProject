@@ -4,8 +4,7 @@ import Footer from "@/components/Footer";
 import FloodAlert from "@/components/FloodAlert";
 import RainMeter from "@/components/RainMeter";
 import TempHumidity from "@/components/TempHumidity";
-import { useLiveReadings } from "@/hooks/useLiveReadings";
-import { useHistoricalReadings } from "@/hooks/useHistoricalReadings";
+import { useCSVReadings } from "@/hooks/useCSVReadings";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Area, AreaChart, CartesianGrid, ReferenceLine, XAxis, YAxis } from "recharts";
@@ -82,141 +81,20 @@ const chartSections = [
 ];
 
 const Analytics = () => {
-	const { data: liveReading } = useLiveReadings();
-	const { data: history, loading: historyLoading, error: historyError } = useHistoricalReadings();
+	const { data: csvReadings, loading: csvLoading, error: csvError } = useCSVReadings();
 
-	// buffer holds the merged historical + live readings used by the charts.
-	// Start with history when it arrives; if history is empty we seed with the latest liveReading.
-	const [buffer, setBuffer] = useState<any[]>([]);
-	// number of hours to show in the chart (default: 24 = 1 day)
-	const [rangeHours] = useState<number>(24);
-	const initializedRef = useRef(false);
-	// localStorage key for persisting historical buffer across page navigations
-	const LOCAL_STORAGE_KEY = "analytics.buffer.v1";
+	// Use the CSV data directly for charts
+	const readingsForCharts = csvReadings;
 
-	// Helper to merge two reading arrays (dedupe by id or timestamp, keep newest by timestamp)
-	function mergeReadings(a: any[], b: any[]) {
-		const map = new Map<string, any>();
-		const push = (r: any) => {
-			const key = r?.id ?? String(r?.timestamp ?? Math.random());
-			const prev = map.get(key);
-			if (!prev) map.set(key, r);
-			else if ((r.timestamp ?? 0) > (prev.timestamp ?? 0)) map.set(key, r);
-		};
-		[a ?? [], b ?? []].forEach((arr) => arr.forEach(push));
-		return Array.from(map.values()).sort((x, y) => (x.timestamp ?? 0) - (y.timestamp ?? 0));
-	}
+	// Get the latest reading from the CSV data
+	const latestReading = readingsForCharts.length > 0 ? readingsForCharts[readingsForCharts.length - 1] : undefined;
 
-	// Load persisted buffer from localStorage on first mount (preserve up to rangeHours)
-	useEffect(() => {
-		if (typeof window === "undefined") return;
-		try {
-			const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
-			if (!raw) return;
-			const parsed = JSON.parse(raw);
-			if (!Array.isArray(parsed) || !parsed.length) return;
-			const cutoff = Date.now() - rangeHours * 60 * 60 * 1000;
-			const filtered = parsed.filter((r: any) => (typeof r.timestamp === "number" ? r.timestamp >= cutoff : true));
-			if (filtered.length) setBuffer(filtered);
-		} catch {
-			/* ignore parse errors */
-		}
-		// run only on mount
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	// We no longer need complex buffering logic because the CSV provides the full dataset we want to show.
+	// However, we might want to filter for the last 24 hours if the CSV contains more than that,
+	// although the Python script limits it to 1001 rows which is roughly 1 week of data at 10 min intervals.
+	// The existing chart logic filters by `rangeHours` anyway.
 
-	// Persist buffer to localStorage whenever it changes
-	useEffect(() => {
-		if (typeof window === "undefined") return;
-		try {
-			if (buffer && buffer.length) localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(buffer));
-			else localStorage.removeItem(LOCAL_STORAGE_KEY);
-		} catch {
-			/* ignore storage errors */
-		}
-	}, [buffer]);
 
-	// Initialize buffer from history once (history may be fetched async).
-	useEffect(() => {
-		// If we get historical data, use it once and mark initialized.
-		if (history && Array.isArray(history) && history.length > 0) {
-			// trim historical data to the selected range (last `rangeHours` hours)
-			const cutoff = Date.now() - rangeHours * 60 * 60 * 1000;
-			const historyFiltered = history.filter((r) => (typeof r.timestamp === "number" ? r.timestamp >= cutoff : true));
-			// merge persisted buffer (if any) with freshly fetched history, dedupe and keep newest
-			setBuffer((prev) => {
-				const merged = mergeReadings(prev, historyFiltered).filter((r: any) =>
-					typeof r.timestamp === "number" ? r.timestamp >= cutoff : true
-				);
-				return merged;
-			});
-			initializedRef.current = true;
-			return;
-		}
-
-		// If history hasn't arrived yet but we already have a liveReading, seed the buffer
-		// so the charts show the incoming value immediately (avoids "waiting for first batch").
-		if (!initializedRef.current && liveReading) {
-			setBuffer((prev) => {
-				if (prev.length) return prev;
-				const now = Date.now();
-				// Normalize timestamp: if the device timestamp is not a plausible epoch (ms),
-				// treat it as "now" so it doesn't get filtered out by the 24h cutoff.
-				const rawTs = (liveReading as any)?.timestamp;
-				const seedTimestamp = typeof rawTs === "number" && rawTs > 1_000_000_000_000 ? rawTs : now;
-				const seed = {
-					id: (liveReading as any).id ?? `live-${seedTimestamp}`,
-					...(liveReading ?? {}),
-					timestamp: seedTimestamp,
-				};
-				return [seed];
-			});
-			initializedRef.current = true;
-		}
-	}, [history, liveReading]);
-
-	// Append incoming live readings to the buffer (avoid duplicates) and trim to last 24 hours.
-	useEffect(() => {
-		if (!liveReading) return;
-
-		setBuffer((prev) => {
-			const now = Date.now();
-			// Normalize timestamp similarly to avoid accidental trimming of valid live values
-			// that use non-epoch timestamps (treat implausible numeric timestamps as "now").
-			const rawTs = (liveReading as any)?.timestamp;
-			const normalizedTs = typeof rawTs === "number" && rawTs > 1_000_000_000_000 ? rawTs : now;
-			const reading = {
-				id: (liveReading as any).id ?? `live-${normalizedTs}`,
-				...(liveReading ?? {}),
-				timestamp: normalizedTs,
-			};
-
-			const last = prev.at(-1);
-			if (last && (last.id === reading.id || last.timestamp === reading.timestamp)) {
-				// already present — no change
-				return prev;
-			}
-
-			const appended = [...prev, reading];
-			const cutoff = Date.now() - 24 * 60 * 60 * 1000;
-			// keep only last 24 hours
-			return appended.filter((r) => (typeof r.timestamp === "number" ? r.timestamp >= cutoff : true));
-		});
-	}, [liveReading]);
-
-	const readingsForCharts = buffer;
-	// Ensure riskAssessment and UI always see the newest reading even if the buffer is temporarily empty.
-	// Prefer the last buffered reading; fall back to the latest liveReading (seed it with a timestamp if missing).
-	const latestReading =
-		readingsForCharts.length > 0
-			? readingsForCharts.at(-1)
-			: liveReading
-			? {
-					id: "latest-live",
-					...(liveReading ?? {}),
-					timestamp: typeof liveReading?.timestamp === "number" ? liveReading.timestamp : Date.now(),
-			  }
-			: undefined;
 
 	const chartData = useMemo<ChartDatum[]>(() => {
 		if (!readingsForCharts.length) return [];
@@ -554,9 +432,9 @@ const Analytics = () => {
 							</p>
 						</CardHeader>
 						<CardContent>
-							{historyError ? (
-								<p className="text-sm text-red-500">Failed to load historical data: {historyError}</p>
-							) : historyLoading && chartData.length === 0 ? (
+							{csvError ? (
+								<p className="text-sm text-red-500">Failed to load historical data: {csvError}</p>
+							) : csvLoading && chartData.length === 0 ? (
 								<p className="text-sm text-muted-foreground">Loading recent readings…</p>
 							) : chartData.length === 0 ? (
 								<p className="text-sm text-muted-foreground">
@@ -667,15 +545,15 @@ const Analytics = () => {
 				</section>
 
 				<FloodAlert
-					waterLevel={typeof liveReading?.waterLevel === "number" ? liveReading.waterLevel : 0}
-					timestamp={liveReading?.timestamp}
+					waterLevel={typeof latestReading?.waterLevel === "number" ? latestReading.waterLevel : 0}
+					timestamp={latestReading?.timestamp}
 				/>
 
 				<div className="grid grid-cols-1 gap-8 mb-12">
-					<RainMeter rainfall={typeof liveReading?.rainfall === "number" ? liveReading.rainfall : 0} />
+					<RainMeter rainfall={typeof latestReading?.rainfall === "number" ? latestReading.rainfall : 0} />
 				</div>
 
-				{typeof liveReading?.temperature === "number" && typeof liveReading?.humidity === "number" ? (
+				{typeof latestReading?.temperature === "number" && typeof latestReading?.humidity === "number" ? (
 					<div className="mb-12 grid gap-4 md:grid-cols-2">
 						{/* Temperature card - warm/red accent (inspired by water level styling) */}
 						<Card className="bg-gradient-to-br from-red-700/6 to-red-500/4 rounded-2xl">
@@ -688,11 +566,11 @@ const Analytics = () => {
 									<div>
 										<p className="text-sm text-slate-300">Temperature</p>
 										<p className="text-2xl font-semibold text-rose-400">
-											{typeof liveReading?.temperature === "number" ? `${liveReading.temperature} °C` : "—"}
+											{typeof latestReading?.temperature === "number" ? `${latestReading.temperature} °C` : "—"}
 										</p>
 									</div>
 									<div className="text-sm text-slate-400">
-										{new Date(liveReading?.timestamp ?? Date.now()).toLocaleTimeString()}
+										{new Date(latestReading?.timestamp ?? Date.now()).toLocaleTimeString()}
 									</div>
 								</div>
 							</CardContent>
@@ -709,11 +587,11 @@ const Analytics = () => {
 									<div>
 										<p className="text-sm text-slate-300">Humidity</p>
 										<p className="text-2xl font-semibold text-teal-300">
-											{typeof liveReading?.humidity === "number" ? `${liveReading.humidity}%` : "—"}
+											{typeof latestReading?.humidity === "number" ? `${latestReading.humidity}%` : "—"}
 										</p>
 									</div>
 									<div className="text-sm text-slate-400">
-										{new Date(liveReading?.timestamp ?? Date.now()).toLocaleTimeString()}
+										{new Date(latestReading?.timestamp ?? Date.now()).toLocaleTimeString()}
 									</div>
 								</div>
 							</CardContent>
