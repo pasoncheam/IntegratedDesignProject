@@ -28,7 +28,7 @@ firebase_admin.initialize_app(cred, {
 # Load Model
 # -------------------------------
 # Load the trained SVM model
-model_path = os.path.join("FloodRiskModel", "svm.pkl")
+model_path = "svm.pkl"
 model = joblib.load(model_path)
 
 # -------------------------------
