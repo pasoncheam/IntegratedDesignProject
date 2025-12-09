@@ -100,12 +100,9 @@ const Analytics = () => {
 		if (!readingsForCharts.length) return [];
 
 		const now = Date.now();
-		const oneDayAgo = now - 24 * 60 * 60 * 1000;
 
-		const filtered = readingsForCharts.filter((reading) => {
-			const ts = typeof reading.timestamp === "number" ? reading.timestamp : now;
-			return ts >= oneDayAgo;
-		});
+		// Use all available data from the CSV
+		const filtered = readingsForCharts;
 
 		// If timestamps are old or not epoch-based (e.g. device millis),
 		// fall back to showing the latest reading as "Now" so the chart
