@@ -4,6 +4,7 @@ import pandas as pd
 import os
 import json
 from datetime import datetime
+import pytz
 
 # -------------------------------
 # Firebase Initialization
@@ -45,7 +46,7 @@ def main():
         'rainfall': float(data.get('rainfall', 0)),
         'temperature': float(data.get('temperature', 0)),
         'waterLevel': float(data.get('waterLevel', 0)),
-        'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        'timestamp': datetime.now(pytz.timezone('Asia/Kuala_Lumpur')).strftime("%Y-%m-%d %H:%M:%S")
     }
     
     # Create DataFrame for new data
