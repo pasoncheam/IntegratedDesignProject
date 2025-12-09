@@ -16,7 +16,7 @@ const Gallery = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/Detected%20waste%20photo/photos.json")
+    fetch("/detected_waste_photos/photos.json")
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to fetch photos");
