@@ -461,7 +461,10 @@ const Analytics = () => {
 													<AreaChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
 														<CartesianGrid strokeDasharray="3 3" />
 														<XAxis
-															dataKey="label"
+															dataKey="timestamp"
+															type="number"
+															domain={['dataMin', 'dataMax']}
+															tickFormatter={(unixTime) => new Date(unixTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
 															tickLine={false}
 															axisLine={false}
 															label={{ value: "Time", position: "insideBottomRight", offset: -10 }}
