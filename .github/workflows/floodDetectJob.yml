@@ -28,7 +28,6 @@ jobs:
       env:
         FIREBASE_KEY: ${{ secrets.FIREBASE_KEY }}
       run: |
-        python analysis_firebase.py
         python SensorDataMLAnalysis/predict_flood_risk.py
 
     - name: Commit and push changes
