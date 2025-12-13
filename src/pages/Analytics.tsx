@@ -35,6 +35,20 @@ type ChartDatum = {
 	temperature?: number;
 };
 
+interface PredictionResult {
+	timestamp: string;
+	prediction: number;
+	probability: number | null;
+	model_used: string;
+	model_accuracy: number;
+	input_data: {
+		rainfall: number;
+		humidity: number;
+		temperature: number;
+		water_level: number;
+	};
+}
+
 const chartSections = [
 	{
 		key: "waterLevel" as const,
@@ -138,16 +152,15 @@ const Analytics = () => {
 		return mapped;
 	}, [readingsForCharts]);
 
-	// --- Environmental Insight (local heuristic) state & trigger logic ---
-	const [insight, setInsight] = useState<string | null>(null);
+	// --- Environmental Insight state & fetch logic ---
+	const [prediction, setPrediction] = useState<PredictionResult | null>(null);
 	const [insightLoading, setInsightLoading] = useState(false);
 	const [insightError, setInsightError] = useState<string | null>(null);
-	const lastInsightKeyRef = useRef<string | null>(null);
+
 	// Download state for Excel export
 	const [downloadLoading, setDownloadLoading] = useState(false);
 
-	// Compile chart data + current insight into an Excel file and trigger download.
-	// Uses dynamic import of `xlsx` so the library is only loaded when user requests a download.
+	// Compile chart data + current prediction into an Excel file and trigger download.
 	async function handleDownloadExcel() {
 		if (downloadLoading) return;
 		setDownloadLoading(true);
@@ -177,10 +190,25 @@ const Analytics = () => {
 			const ws = XLSX.utils.json_to_sheet(rows);
 			XLSX.utils.book_append_sheet(wb, ws, "Readings");
 
-			// Insight sheet (single paragraph)
-			const insightText = insight ?? "No insight available.";
-			const insightSheet = XLSX.utils.aoa_to_sheet([["Environmental Insight"], [insightText]]);
-			XLSX.utils.book_append_sheet(wb, insightSheet, "Insight");
+			// Insight sheet (Prediction)
+			if (prediction) {
+				const predictionData = [
+					["AI Flood Analysis Report"],
+					["Timestamp", prediction.timestamp],
+					["Prediction", prediction.prediction === 1 ? "FLOOD RISK" : "NO FLOOD RISK"],
+					["Model Used", prediction.model_used],
+					["Model Accuracy", `${(prediction.model_accuracy * 100).toFixed(1)}%`],
+					["Input Rainfall (mm)", prediction.input_data.rainfall],
+					["Input Water Level (cm)", prediction.input_data.water_level],
+					["Input Humidity (%)", prediction.input_data.humidity],
+					["Input Temperature (°C)", prediction.input_data.temperature]
+				];
+				const insightSheet = XLSX.utils.aoa_to_sheet(predictionData);
+				XLSX.utils.book_append_sheet(wb, insightSheet, "Analysis");
+			} else {
+				const insightSheet = XLSX.utils.aoa_to_sheet([["AI Analysis"], ["No prediction available yet."]]);
+				XLSX.utils.book_append_sheet(wb, insightSheet, "Analysis");
+			}
 
 			// Write workbook to binary array and download
 			const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
@@ -188,139 +216,39 @@ const Analytics = () => {
 			const url = URL.createObjectURL(blob);
 			const a = document.createElement("a");
 			a.href = url;
-			a.download = `environment_insight_${new Date().toISOString().replace(/[:.]/g, "-")}.xlsx`;
+			a.download = `environment_data_${new Date().toISOString().replace(/[:.]/g, "-")}.xlsx`;
 			document.body.appendChild(a);
 			a.click();
 			a.remove();
 			URL.revokeObjectURL(url);
 		} catch (err) {
 			console.error(err);
-			setInsightError("Failed to generate Excel.");
+			// We don't have a place to show download error in UI easily for top button, just log
+			alert("Failed to generate Excel.");
 		} finally {
 			setDownloadLoading(false);
 		}
 	}
 
-	// Small helper: compute simple trend (first -> last) and return label and delta
-	function computeTrend(values: number[]): { delta: number; trendLabel: string } {
-		if (!values.length) return { delta: 0, trendLabel: "no data" };
-		const first = values[0];
-		const last = values[values.length - 1];
-		const delta = last - first;
-		const absDelta = Math.abs(delta);
-
-		// thresholds are relative to scale; tweak for each metric in caller
-		let trendLabel = "stable";
-		if (absDelta === 0) trendLabel = "stable";
-		else if (absDelta < 0.01 * Math.max(1, Math.abs(first))) trendLabel = "slightly changed";
-		else if (absDelta < 0.05 * Math.max(1, Math.abs(first))) trendLabel = delta > 0 ? "slightly rising" : "slightly falling";
-		else if (absDelta < 0.15 * Math.max(1, Math.abs(first))) trendLabel = delta > 0 ? "rising" : "falling";
-		else trendLabel = delta > 0 ? "rising sharply" : "falling sharply";
-
-		return { delta, trendLabel };
-	}
-
-	// Generate a concise 1-paragraph (multi-sentence) insight with more detail and emotion.
-	function generateHeuristicInsight(latest: any, recent: ChartDatum[]): string {
-		const partsCurrent: string[] = [];
-
-		if (typeof latest.waterLevel === "number") partsCurrent.push(`water level ${latest.waterLevel} cm`);
-		if (typeof latest.rainfall === "number") partsCurrent.push(`rainfall ${latest.rainfall} mm`);
-		if (typeof latest.humidity === "number") partsCurrent.push(`humidity ${latest.humidity}%`);
-		if (typeof latest.temperature === "number") partsCurrent.push(`temperature ${latest.temperature}°C`);
-
-		const snapshot = partsCurrent.length ? `Right now: ${partsCurrent.join(", ")}.` : "Right now, current readings are unavailable.";
-
-		// Prepare recent arrays
-		const lastN = recent.slice(-12);
-		const wl = lastN.map((r) => (typeof r.waterLevel === "number" ? r.waterLevel : NaN)).filter((v) => !Number.isNaN(v));
-		const rf = lastN.map((r) => (typeof r.rainfall === "number" ? r.rainfall : NaN)).filter((v) => !Number.isNaN(v));
-		const hum = lastN.map((r) => (typeof r.humidity === "number" ? r.humidity : NaN)).filter((v) => !Number.isNaN(v));
-		const tmp = lastN.map((r) => (typeof r.temperature === "number" ? r.temperature : NaN)).filter((v) => !Number.isNaN(v));
-
-		// Helper to format trend with numbers
-		function fmtTrend(arr: number[], label: string) {
-			if (!arr.length) return null;
-			const { delta, trendLabel } = computeTrend(arr);
-			const first = arr[0];
-			const last = arr[arr.length - 1];
-			const change = (last - first).toFixed(1);
-			return `${label} is ${trendLabel} (Δ ${change}).`;
-		}
-
-		const wlTrend = fmtTrend(wl, "Water level");
-		const rfTrend = fmtTrend(rf, "Rainfall");
-		const humTrend = fmtTrend(hum, "Humidity");
-		const tmpTrend = fmtTrend(tmp, "Temperature");
-
-		// Averages for context
-		const avg = (arr: number[]) => (arr.length ? (arr.reduce((a, b) => a + b, 0) / arr.length) : NaN);
-		const rfAvg = avg(rf);
-		const wlLast = wl.length ? wl[wl.length - 1] : NaN;
-
-		// Interpretive sentence about implications
-		let implication = "No immediate concerns detected.";
-		if (!Number.isNaN(wlLast) && wlLast >= WATER_LEVEL_THRESHOLDS.danger) {
-			implication = "Water level is within the danger range — immediate caution is warranted.";
-		} else if (!Number.isNaN(wlLast) && wlLast >= WATER_LEVEL_THRESHOLDS.warning && !Number.isNaN(rfAvg) && rfAvg >= RAINFALL_THRESHOLDS.moderate) {
-			implication = "Rising water with sustained moderate-to-heavy rainfall suggests increased flood risk — heightened monitoring strongly advised.";
-		} else if (!Number.isNaN(rfAvg) && rfAvg >= RAINFALL_THRESHOLDS.heavy) {
-			implication = "Heavy rainfall recently increases runoff risk; watch water level closely.";
-		} else if ((hum.length && hum[hum.length - 1] > HUMIDITY_RANGE.max) || (tmp.length && tmp[tmp.length - 1] > 35)) {
-			implication = "Atmospheric conditions are notable and could affect short-term behavior — stay attentive.";
-		}
-
-		// Emotional recommendation
-		let recommendation = "Continue to monitor readings frequently.";
-		if (implication.toLowerCase().includes("immediate") || implication.toLowerCase().includes("danger")) {
-			recommendation = "Take immediate precautions and alert relevant parties — this is a serious situation.";
-		} else if (implication.toLowerCase().includes("increased")) {
-			recommendation = "Be vigilant over the next hours and check updates often.";
-		} else if (implication.toLowerCase().includes("heavy rainfall")) {
-			recommendation = "Prepare for potential runoff and keep an eye on river levels.";
-		} else {
-			recommendation = "Conditions seem calm but remain watchful — weather can change quickly.";
-		}
-
-		// Compose a single paragraph (3-4 sentences)
-		const sentences: string[] = [];
-		sentences.push(snapshot);
-		const trendSentences = [wlTrend, rfTrend, humTrend, tmpTrend].filter(Boolean) as string[];
-		if (trendSentences.length) sentences.push(trendSentences.join(" "));
-		sentences.push(implication);
-		sentences.push(recommendation);
-
-		// Join into one paragraph and ensure it's not excessively long
-		const paragraph = sentences.join(" ").replace(/\s+/g, " ").trim();
-		return paragraph;
-	}
-
-	// Trigger generation only when a new reading arrives (deduplicated).
+	// Fetch the latest ML prediction
 	useEffect(() => {
-		if (!latestReading) return;
-
-		const key = String(latestReading.id ?? latestReading.timestamp ?? Date.now());
-		if (lastInsightKeyRef.current === key) return;
-		lastInsightKeyRef.current = key;
-
 		setInsightLoading(true);
-		setInsightError(null);
-
-		// run generation synchronously but async-style for UI
-		const t = setTimeout(() => {
-			try {
-				const generated = generateHeuristicInsight(latestReading, chartData);
-				setInsight(generated || "Insight unavailable at the moment.");
-			} catch (err) {
-				setInsight(null);
-				setInsightError("Insight unavailable at the moment.");
-			} finally {
+		fetch('/latest_flood_risk.json')
+			.then(res => {
+				if (!res.ok) throw new Error("Failed to fetch prediction");
+				return res.json();
+			})
+			.then((data: PredictionResult) => {
+				setPrediction(data);
 				setInsightLoading(false);
-			}
-		}, 100); // tiny delay to keep UI responsive
-
-		return () => clearTimeout(t);
-	}, [latestReading, chartData]);
+			})
+			.catch(err => {
+				console.error("Error fetching flood risk:", err);
+				setInsightError("Prediction unavailable");
+				setInsightLoading(false);
+			});
+	}, []); // Fetch once on mount, or could poll interval
+	// --- end insight logic ---
 	// --- end insight logic ---
 
 	const lastUpdatedLabel = latestReading?.timestamp
@@ -503,53 +431,39 @@ const Analytics = () => {
 					</Card>
 
 					{/* AI-generated Environmental Insight - placed immediately below the graphs */}
+					{/* Machine Learning Prediction Result */}
 					<Card>
 						<CardHeader>
-							<CardTitle>Environmental Insight</CardTitle>
-							<p className="text-sm text-muted-foreground">AI-generated summary of recent conditions</p>
+							<CardTitle>AI Flood Analysis</CardTitle>
+							<p className="text-sm text-muted-foreground">Real-time prediction using {prediction?.model_used ?? "Machine Learning"}</p>
 						</CardHeader>
 						<CardContent>
 							{insightLoading ? (
-								<p className="text-sm text-muted-foreground">Generating insights…</p>
-							) : insight ? (
-								<>
-									<p className="text-sm mb-4 whitespace-pre-line">{insight}</p>
-									<div className="flex items-center gap-3">
-										<button
-											type="button"
-											onClick={handleDownloadExcel}
-											disabled={downloadLoading}
-											className="inline-flex items-center rounded-md bg-slate-800 px-3 py-2 text-sm font-medium text-white hover:bg-slate-700 disabled:opacity-50"
-										>
-											{downloadLoading ? "Preparing file…" : "Download Excel report"}
-										</button>
-										<p className="text-xs text-slate-400">Includes 1-day history and current insight</p>
+								<p className="text-sm text-muted-foreground">Analyzing data...</p>
+							) : prediction ? (
+								<div className="space-y-4">
+									<div className="flex items-center gap-4">
+										<div className={`text-3xl font-bold ${prediction.prediction === 1 ? "text-red-500" : "text-emerald-500"}`}>
+											{prediction.prediction === 1 ? "FLOOD RISK DETECTED" : "NO FLOOD RISK DETECTED"}
+										</div>
+										<p className="text-sm text-slate-400">
+											Accuracy: {(prediction.model_accuracy * 100).toFixed(1)}%
+										</p>
 									</div>
-								</>
+									<div className="text-sm text-slate-300 bg-white/5 p-4 rounded-lg">
+										<p className="font-semibold mb-2">Analysis Data ({prediction.timestamp}):</p>
+										<ul className="grid grid-cols-2 gap-2">
+											<li>Rainfall: {prediction.input_data.rainfall.toFixed(2)} mm</li>
+											<li>Water Level: {prediction.input_data.water_level.toFixed(2)} cm</li>
+											<li>Humidity: {prediction.input_data.humidity.toFixed(1)}%</li>
+											<li>Temperature: {prediction.input_data.temperature.toFixed(1)}°C</li>
+										</ul>
+									</div>
+								</div>
 							) : insightError ? (
-								<>
-									<p className="text-sm text-red-500">{insightError}</p>
-									<button
-										type="button"
-										onClick={handleDownloadExcel}
-										disabled={downloadLoading}
-										className="inline-flex items-center mt-3 rounded-md bg-slate-800 px-3 py-2 text-sm font-medium text-white hover:bg-slate-700 disabled:opacity-50"
-									>
-										{downloadLoading ? "Preparing file…" : "Download Excel report"}
-									</button>
-								</>
+								<p className="text-sm text-red-500">{insightError}</p>
 							) : (
-								<>
-									<p className="text-sm text-muted-foreground">No insight available yet.</p>
-									<button
-										type="button"
-										onClick={handleDownloadExcel}
-										disabled={downloadLoading}
-										className="inline-flex items-center mt-3 rounded-md bg-slate-800 px-3 py-2 text-sm font-medium text-white hover:bg-slate-700 disabled:opacity-50"
-									>
-										{downloadLoading ? "Preparing file…" : "Download Excel report"}
-									</button>
-								</>
+								<p className="text-sm text-muted-foreground">Waiting for analysis...</p>
 							)}
 						</CardContent>
 					</Card>
