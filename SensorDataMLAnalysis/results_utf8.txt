@@ -1,0 +1,64 @@
+
+--- Logistic Regression Results ---
+Accuracy: 0.52
+Confusion Matrix:
+[[413 553]
+ [416 618]]
+Report:
+              precision    recall  f1-score   support
+
+           0       0.50      0.43      0.46       966
+           1       0.53      0.60      0.56      1034
+
+    accuracy                           0.52      2000
+   macro avg       0.51      0.51      0.51      2000
+weighted avg       0.51      0.52      0.51      2000
+
+
+--- Decision Tree Results ---
+Accuracy: 0.52
+Confusion Matrix:
+[[490 476]
+ [493 541]]
+Report:
+              precision    recall  f1-score   support
+
+           0       0.50      0.51      0.50       966
+           1       0.53      0.52      0.53      1034
+
+    accuracy                           0.52      2000
+   macro avg       0.52      0.52      0.52      2000
+weighted avg       0.52      0.52      0.52      2000
+
+
+--- SVM Results ---
+Accuracy: 0.53
+Confusion Matrix:
+[[458 508]
+ [438 596]]
+Report:
+              precision    recall  f1-score   support
+
+           0       0.51      0.47      0.49       966
+           1       0.54      0.58      0.56      1034
+
+    accuracy                           0.53      2000
+   macro avg       0.53      0.53      0.52      2000
+weighted avg       0.53      0.53      0.53      2000
+
+
+--- Deep Learning (MLP) Results ---
+Accuracy: 0.51
+Confusion Matrix:
+[[507 459]
+ [517 517]]
+Report:
+              precision    recall  f1-score   support
+
+           0       0.50      0.52      0.51       966
+           1       0.53      0.50      0.51      1034
+
+    accuracy                           0.51      2000
+   macro avg       0.51      0.51      0.51      2000
+weighted avg       0.51      0.51      0.51      2000
+

@@ -2,7 +2,7 @@ name: Run Python Scripts Every Minute
 
 on:
   schedule:
-    - cron: "* * * * *"  # every 1 minute
+    - cron: "*/10 * * * *"  # every 10 minutes
   workflow_dispatch:      # allows manual triggering
 
 jobs:
@@ -22,10 +22,20 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        if [ -f SensorDataMLAnalysis/requirements.txt ]; then pip install -r SensorDataMLAnalysis/requirements.txt; fi
 
     - name: Run analysis
       env:
         FIREBASE_KEY: ${{ secrets.FIREBASE_KEY }}
       run: |
         python analysis_firebase.py
+        python SensorDataMLAnalysis/predict_flood_risk.py
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add public/latest_flood_risk.json
+        git commit -m "Update flood risk prediction" || echo "No changes to commit"
+        git push
 
