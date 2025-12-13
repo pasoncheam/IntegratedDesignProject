@@ -233,7 +233,12 @@ const Analytics = () => {
 	// Fetch the latest ML prediction
 	useEffect(() => {
 		setInsightLoading(true);
-		fetch('/latest_flood_risk.json')
+		// Prepend base URL to fetching from public folder in production
+		const baseUrl = import.meta.env.BASE_URL.endsWith('/')
+			? import.meta.env.BASE_URL
+			: `${import.meta.env.BASE_URL}/`;
+
+		fetch(`${baseUrl}latest_flood_risk.json`)
 			.then(res => {
 				if (!res.ok) throw new Error("Failed to fetch prediction");
 				return res.json();
