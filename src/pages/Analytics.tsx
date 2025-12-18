@@ -8,7 +8,7 @@ import { useCSVReadings } from "@/hooks/useCSVReadings";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Area, AreaChart, CartesianGrid, ReferenceLine, XAxis, YAxis } from "recharts";
-import { Info } from "lucide-react";
+import { Info, TriangleAlert } from "lucide-react";
 import {
 	Dialog,
 	DialogContent,
@@ -335,6 +335,19 @@ const Analytics = () => {
 			<Navigation />
 
 			<main className="flex-1 container mx-auto px-4 py-8 space-y-10">
+				{prediction?.prediction === 1 && (
+					<div className="bg-destructive/15 border-l-4 border-destructive p-4 rounded-r-lg flex items-start gap-4 animate-in slide-in-from-top-2">
+						<TriangleAlert className="h-6 w-6 text-destructive shrink-0 mt-0.5" />
+						<div>
+							<h3 className="text-lg font-bold text-destructive">FLOOD RISK ALERT</h3>
+							<p className="text-destructive-foreground">
+								The AI system has detected a high probability of flooding based on current sensor data.
+								Please exercise caution and monitor water levels closely.
+							</p>
+						</div>
+					</div>
+				)}
+
 				<section className="space-y-6">
 					<Card className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white shadow-2xl border-slate-800">
 						<CardHeader>

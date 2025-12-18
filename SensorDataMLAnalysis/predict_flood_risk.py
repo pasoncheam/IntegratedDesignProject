@@ -3,6 +3,7 @@ import pickle
 import json
 import os
 import sys
+import requests
 
 def predict_flood_risk():
     # Define paths
@@ -122,6 +123,8 @@ def predict_flood_risk():
         with open(OUTPUT_PATH, 'w') as f:
             json.dump(result, f, indent=4)
         print(f"Saved result to: {OUTPUT_PATH}")
+
+
 
     except Exception as e:
         print(f"An error occurred: {e}")

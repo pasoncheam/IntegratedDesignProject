@@ -26,9 +26,9 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         if [ -f SensorDataMLAnalysis/requirements.txt ]; then pip install -r SensorDataMLAnalysis/requirements.txt; fi
 
-    - name: Run analysis
-      env:
-        FIREBASE_KEY: ${{ secrets.FIREBASE_KEY }}
+      - name: Run analysis
+        env:
+          FIREBASE_KEY: ${{ secrets.FIREBASE_KEY }}
       run: |
         python SensorDataMLAnalysis/predict_flood_risk.py
 
