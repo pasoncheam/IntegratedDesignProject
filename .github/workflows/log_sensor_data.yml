@@ -30,11 +30,12 @@ jobs:
         FIREBASE_KEY: ${{ secrets.FIREBASE_KEY }}
       run: |
         python store_sensor_data.py
+        python SensorDataMLAnalysis/archive_waste_history.py
 
     - name: Commit and push changes
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add public/sensor_data.csv
+        git add public/sensor_data.csv public/detected_waste_photos/waste_history.json
         # Only commit if there are changes
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Update sensor data [skip ci]" && git push)
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Update sensor data and waste history [skip ci]" && git push)

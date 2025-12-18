@@ -1,4 +1,4 @@
-name: Run Python Scripts Every Minute
+name: Flood analysis
 
 on:
   schedule:
