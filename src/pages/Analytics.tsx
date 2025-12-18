@@ -348,13 +348,13 @@ const Analytics = () => {
 									<div>
 										<p className="text-sm text-slate-300">Water Level</p>
 										<p className="text-2xl font-semibold">
-											{typeof latestReading?.waterLevel === "number" ? `${latestReading.waterLevel} cm` : "—"}
+											{typeof latestReading?.waterLevel === "number" ? `${latestReading.waterLevel.toFixed(2)} cm` : "—"}
 										</p>
 									</div>
 									<div>
 										<p className="text-sm text-slate-300">Rainfall</p>
 										<p className="text-2xl font-semibold">
-											{typeof latestReading?.rainfall === "number" ? `${latestReading.rainfall} mm` : "—"}
+											{typeof latestReading?.rainfall === "number" ? `${latestReading.rainfall.toFixed(2)} mm` : "—"}
 										</p>
 									</div>
 								</div>
@@ -362,13 +362,13 @@ const Analytics = () => {
 									<div>
 										<p className="text-sm text-slate-300">Temperature</p>
 										<p className="text-2xl font-semibold">
-											{typeof latestReading?.temperature === "number" ? `${latestReading.temperature} °C` : "—"}
+											{typeof latestReading?.temperature === "number" ? `${latestReading.temperature.toFixed(2)} °C` : "—"}
 										</p>
 									</div>
 									<div>
 										<p className="text-sm text-slate-300">Humidity</p>
 										<p className="text-2xl font-semibold">
-											{typeof latestReading?.humidity === "number" ? `${latestReading.humidity}%` : "—"}
+											{typeof latestReading?.humidity === "number" ? `${latestReading.humidity.toFixed(2)}%` : "—"}
 										</p>
 									</div>
 								</div>
@@ -435,7 +435,7 @@ const Analytics = () => {
 															width={50}
 															tickLine={false}
 															axisLine={false}
-															tickFormatter={(value) => `${value}`}
+															tickFormatter={(value) => `${Number(value).toFixed(2)}`}
 															label={{ value: `${section.title} (${section.unit})`, angle: -90, position: "insideLeft", style: { textAnchor: 'middle' } }}
 														/>
 														<ChartTooltip content={<ChartTooltipContent />} />
@@ -547,7 +547,7 @@ const Analytics = () => {
 										<div>
 											<p className="text-sm text-slate-300">Temperature</p>
 											<p className="text-2xl font-semibold text-rose-400">
-												{typeof latestReading?.temperature === "number" ? `${latestReading.temperature} °C` : "—"}
+												{typeof latestReading?.temperature === "number" ? `${latestReading.temperature.toFixed(2)} °C` : "—"}
 											</p>
 										</div>
 										<div className="text-sm text-slate-400">
@@ -568,7 +568,7 @@ const Analytics = () => {
 										<div>
 											<p className="text-sm text-slate-300">Humidity</p>
 											<p className="text-2xl font-semibold text-teal-300">
-												{typeof latestReading?.humidity === "number" ? `${latestReading.humidity}%` : "—"}
+												{typeof latestReading?.humidity === "number" ? `${latestReading.humidity.toFixed(2)}%` : "—"}
 											</p>
 										</div>
 										<div className="text-sm text-slate-400">
