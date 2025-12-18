@@ -10,16 +10,15 @@ def archive_history():
     print(f"Checking for new photos in {PHOTOS_JSON_PATH}...")
 
     # 1. Load current limited photos
+    current_photos = []
     if not os.path.exists(PHOTOS_JSON_PATH):
-        print(f"No photos.json found at {PHOTOS_JSON_PATH}. Exiting.")
-        return
-
-    try:
-        with open(PHOTOS_JSON_PATH, "r") as f:
-            current_photos = json.load(f)
-    except json.JSONDecodeError:
-        print("Error decoding photos.json. Exiting.")
-        return
+        print(f"No photos.json found at {PHOTOS_JSON_PATH}. Initializing empty history.")
+    else:
+        try:
+            with open(PHOTOS_JSON_PATH, "r") as f:
+                current_photos = json.load(f)
+        except json.JSONDecodeError:
+            print("Error decoding photos.json. Initializing empty history.")
 
     # 2. Load existing history or initialize
     if os.path.exists(HISTORY_JSON_PATH):
@@ -45,8 +44,8 @@ def archive_history():
             new_count += 1
             print(f"Archived new photo: {photo['id']} ({photo['date']} {photo['time']})")
 
-    # 4. Save history if changes made
-    if new_count > 0:
+    # 4. Save history if changes made OR if file doesn't exist yet
+    if new_count > 0 or not os.path.exists(HISTORY_JSON_PATH):
         # Sort by date/time newly (optional but good for consistency)
         # Using simple string comparison for date+time which works for ISO-like formats
         history_photos.sort(key=lambda x: x["date"] + x["time"], reverse=True)
@@ -58,9 +57,9 @@ def archive_history():
 
         with open(HISTORY_JSON_PATH, "w") as f:
             json.dump(history_photos, f, indent=2)
-        print(f"Successfully added {new_count} new photos to history. Total archived: {len(history_photos)}")
+        print(f"Successfully synced history. Added {new_count} new photos. Total: {len(history_photos)}")
     else:
-        print("No new photos to archive.")
+        print("No new photos to archive and history file exists.")
 
 if __name__ == "__main__":
     archive_history()
