@@ -38,5 +38,6 @@ jobs:
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add public/latest_flood_risk.json
         git commit -m "Update flood risk prediction" || echo "No changes to commit"
+        git pull --rebase origin main
         git push
 
