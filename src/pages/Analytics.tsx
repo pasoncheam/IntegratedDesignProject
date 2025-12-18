@@ -8,6 +8,49 @@ import { useCSVReadings } from "@/hooks/useCSVReadings";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Area, AreaChart, CartesianGrid, ReferenceLine, XAxis, YAxis } from "recharts";
+import { Info } from "lucide-react";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
+
+const ANTHROPIC_EXPLANATION = (
+	<div className="space-y-4 text-sm text-muted-foreground">
+		<p>
+			Our system employs a <strong>Champion Model Strategy</strong> to ensure the highest accuracy for flood prediction.
+		</p>
+		<div className="space-y-2">
+			<p className="font-semibold text-foreground">How it works:</p>
+			<ol className="list-decimal list-inside space-y-2 ml-2">
+				<li>
+					<strong>Training:</strong> We continuously train 4 powerful AI models:
+					<ul className="list-disc list-inside ml-4 mt-1 opacity-90">
+						<li>Logistic Regression</li>
+						<li>Decision Tree</li>
+						<li>Support Vector Machine (SVM)</li>
+						<li>Deep Learning</li>
+					</ul>
+				</li>
+				<li>
+					<strong>Evaluation:</strong> After every training cycle, we evaluate each model's performance against the latest data.
+				</li>
+				<li>
+					<strong>Selection:</strong> The model with the highest accuracy score is virtually crowned the <em>"Champion"</em>.
+				</li>
+				<li>
+					<strong>Prediction:</strong> Your live flood risk prediction is generated exclusively by this Champion model.
+				</li>
+			</ol>
+		</div>
+		<p>
+			This ensures that our analysis adapts to changing conditions and always uses the smartest available brain for the job.
+		</p>
+	</div>
+);
 
 const WATER_LEVEL_THRESHOLDS = {
 	safe: 50,
@@ -439,7 +482,25 @@ const Analytics = () => {
 					{/* Machine Learning Prediction Result */}
 					<Card>
 						<CardHeader>
-							<CardTitle>AI Flood Analysis</CardTitle>
+							<div className="flex items-center gap-2">
+								<CardTitle>AI Flood Analysis</CardTitle>
+								<Dialog>
+									<DialogTrigger asChild>
+										<button className="inline-flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 p-1 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2" aria-label="Learn more about AI Analysis">
+											<Info className="h-4 w-4 text-muted-foreground" />
+										</button>
+									</DialogTrigger>
+									<DialogContent className="sm:max-w-md">
+										<DialogHeader>
+											<DialogTitle>How Our AI Analysis Works</DialogTitle>
+											<DialogDescription>
+												Understanding the "Champion" Model Strategy
+											</DialogDescription>
+										</DialogHeader>
+										{ANTHROPIC_EXPLANATION}
+									</DialogContent>
+								</Dialog>
+							</div>
 							<p className="text-sm text-muted-foreground">Real-time prediction using {prediction?.model_used ?? "Machine Learning"}</p>
 						</CardHeader>
 						<CardContent>
@@ -455,7 +516,7 @@ const Analytics = () => {
 											Accuracy: {(prediction.model_accuracy * 100).toFixed(1)}%
 										</p>
 									</div>
-									<div className="text-sm text-slate-300 bg-white/5 p-4 rounded-lg">
+									<div className="text-sm text-black bg-slate-100 p-4 rounded-lg">
 										<p className="font-semibold mb-2">Analysis Data ({prediction.timestamp}):</p>
 										<ul className="grid grid-cols-2 gap-2">
 											<li>Rainfall: {prediction.input_data.rainfall.toFixed(2)} mm</li>
@@ -538,4 +599,3 @@ const Analytics = () => {
 };
 
 export default Analytics;
-
