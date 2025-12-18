@@ -123,10 +123,6 @@ const chartSections = [
 		description: "Relative humidity percentage",
 		color: "#14b8a6",
 		unit: "%",
-		referenceLines: [
-			{ value: HUMIDITY_RANGE.min, color: "#eab308", label: "Low" },
-			{ value: HUMIDITY_RANGE.max, color: "#eab308", label: "High" },
-		],
 	},
 	{
 		key: "temperature" as const,
