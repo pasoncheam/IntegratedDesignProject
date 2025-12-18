@@ -27,7 +27,7 @@ const ANTHROPIC_EXPLANATION = (
 			<p className="font-semibold text-foreground">How it works:</p>
 			<ol className="list-decimal list-inside space-y-2 ml-2">
 				<li>
-					<strong>Training:</strong> We continuously train 4 powerful AI models:
+					<strong>Training:</strong> We continuously train 4 AI models:
 					<ul className="list-disc list-inside ml-4 mt-1 opacity-90">
 						<li>Logistic Regression</li>
 						<li>Decision Tree</li>
@@ -342,14 +342,7 @@ const Analytics = () => {
 							<p className="text-slate-200">{lastUpdatedLabel}</p>
 						</CardHeader>
 						<CardContent className="grid gap-6 md:grid-cols-2">
-							<div className="space-y-4">
-								<p className={`text-4xl font-bold ${riskAssessment.color}`}>{riskAssessment.level}</p>
-								<p className="text-slate-200">{riskAssessment.message}</p>
-								<div className="text-sm text-slate-400 space-y-1">
-									<p>Danger water level ≥ {WATER_LEVEL_THRESHOLDS.danger} cm</p>
-									<p>Heavy rainfall ≥ {RAINFALL_THRESHOLDS.heavy} mm</p>
-								</div>
-							</div>
+
 							<div className="grid gap-4">
 								<div className="flex items-center justify-between rounded-2xl bg-white/10 p-4 backdrop-blur">
 									<div>
