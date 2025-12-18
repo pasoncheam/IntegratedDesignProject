@@ -51,6 +51,11 @@ def archive_history():
         # Using simple string comparison for date+time which works for ISO-like formats
         history_photos.sort(key=lambda x: x["date"] + x["time"], reverse=True)
 
+        # Safety Limit: Keep only the recent 5000 entries to prevent performance issues
+        if len(history_photos) > 5000:
+            print(f"History limit exceeded ({len(history_photos)}). Trimming to recent 5000.")
+            history_photos = history_photos[:5000]
+
         with open(HISTORY_JSON_PATH, "w") as f:
             json.dump(history_photos, f, indent=2)
         print(f"Successfully added {new_count} new photos to history. Total archived: {len(history_photos)}")
