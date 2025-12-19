@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Area, AreaChart, CartesianGrid, ReferenceLine, XAxis, YAxis } from "recharts";
 import { Info, TriangleAlert } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
 	Dialog,
 	DialogContent,
@@ -51,6 +52,60 @@ const ANTHROPIC_EXPLANATION = (
 		</p>
 	</div>
 );
+
+const DISCLAIMER_EXPLANATION = (
+	<div className="space-y-4 text-sm text-muted-foreground">
+		<p>
+			Please note that the AI models and flood risk analysis provided on this website are currently in a <strong>preliminary research stage</strong>.
+		</p>
+		<div className="space-y-2">
+			<p className="font-semibold text-foreground">Important Considerations:</p>
+			<ul className="list-disc list-inside space-y-2 ml-2">
+				<li>
+					<strong>Not Nationally Recognized:</strong> This system is not yet accredited or recognized by national meteorological or geological agencies.
+				</li>
+				<li>
+					<strong>Experimental Nature:</strong> The predictions are based on academic research and experimental data processing techniques.
+				</li>
+				<li>
+					<strong>Use with Caution:</strong> While we strive for accuracy, this information should be used as a supplementary reference and not as the sole basis for critical safety decisions. Always refer to official government warnings for authoritative information.
+				</li>
+			</ul>
+		</div>
+	</div>
+);
+
+const InfoPopupContent = () => {
+	const [page, setPage] = useState(0);
+
+	return (
+		<>
+			<DialogHeader>
+				<DialogTitle>{page === 0 ? "How Our AI Analysis Works" : "Disclaimer & Limitations"}</DialogTitle>
+				<DialogDescription>
+					{page === 0 ? "Understanding the \"Champion\" Model Strategy" : "Important information about the system status"}
+				</DialogDescription>
+			</DialogHeader>
+
+			<div className="flex-1">
+				{page === 0 ? ANTHROPIC_EXPLANATION : DISCLAIMER_EXPLANATION}
+			</div>
+
+			<div className="flex justify-end gap-2 mt-4">
+				{page > 0 && (
+					<Button variant="outline" size="sm" onClick={() => setPage((p) => p - 1)}>
+						Previous
+					</Button>
+				)}
+				{page === 0 && (
+					<Button size="sm" onClick={() => setPage((p) => p + 1)}>
+						Next
+					</Button>
+				)}
+			</div>
+		</>
+	);
+};
 
 const WATER_LEVEL_THRESHOLDS = {
 	safe: 50,
@@ -485,7 +540,7 @@ const Analytics = () => {
 					<Card>
 						<CardHeader>
 							<div className="flex items-center gap-2">
-								<CardTitle>AI Flood Analysis</CardTitle>
+								<CardTitle>AI Flood Risk Analysis</CardTitle>
 								<Dialog>
 									<DialogTrigger asChild>
 										<button className="inline-flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 p-1 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2" aria-label="Learn more about AI Analysis">
@@ -493,13 +548,7 @@ const Analytics = () => {
 										</button>
 									</DialogTrigger>
 									<DialogContent className="sm:max-w-md">
-										<DialogHeader>
-											<DialogTitle>How Our AI Analysis Works</DialogTitle>
-											<DialogDescription>
-												Understanding the "Champion" Model Strategy
-											</DialogDescription>
-										</DialogHeader>
-										{ANTHROPIC_EXPLANATION}
+										<InfoPopupContent />
 									</DialogContent>
 								</Dialog>
 							</div>
