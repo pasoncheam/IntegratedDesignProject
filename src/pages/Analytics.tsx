@@ -56,7 +56,7 @@ const ANTHROPIC_EXPLANATION = (
 const DISCLAIMER_EXPLANATION = (
 	<div className="space-y-4 text-sm text-muted-foreground">
 		<p>
-			Please note that the AI models and flood risk analysis provided on this website are currently in a <strong>preliminary research stage</strong>.
+			Please note that the AI models and flood risk analysis provided on this website are currently in a <strong>preliminary development stage</strong>.
 		</p>
 		<div className="space-y-2">
 			<p className="font-semibold text-foreground">Important Considerations:</p>
@@ -598,8 +598,8 @@ const Analytics = () => {
 				{
 					typeof latestReading?.temperature === "number" && typeof latestReading?.humidity === "number" ? (
 						<div className="mb-12 grid gap-4 md:grid-cols-2">
-							{/* Temperature card - warm/red accent (inspired by water level styling) */}
-							<Card className="bg-gradient-to-br from-red-700/6 to-red-500/4 rounded-2xl">
+							{/* Temperature card - standard styling */}
+							<Card className="rounded-2xl">
 								<CardHeader>
 									<CardTitle>Temperature Reading</CardTitle>
 									<p className="text-sm text-muted-foreground">Current ambient temperature</p>
@@ -608,7 +608,7 @@ const Analytics = () => {
 									<div className="flex items-center justify-between">
 										<div>
 											<p className="text-sm text-slate-300">Temperature</p>
-											<p className="text-2xl font-semibold text-rose-400">
+											<p className="text-2xl font-semibold text-primary">
 												{typeof latestReading?.temperature === "number" ? `${latestReading.temperature.toFixed(2)} °C` : "—"}
 											</p>
 										</div>
@@ -619,8 +619,8 @@ const Analytics = () => {
 								</CardContent>
 							</Card>
 
-							{/* Humidity card - cool/teal accent (inspired by rainfall styling) */}
-							<Card className="bg-gradient-to-br from-teal-700/6 to-emerald-500/4 rounded-2xl">
+							{/* Humidity card - standard styling */}
+							<Card className="rounded-2xl">
 								<CardHeader>
 									<CardTitle>Humidity Reading</CardTitle>
 									<p className="text-sm text-muted-foreground">Relative humidity</p>
@@ -629,7 +629,7 @@ const Analytics = () => {
 									<div className="flex items-center justify-between">
 										<div>
 											<p className="text-sm text-slate-300">Humidity</p>
-											<p className="text-2xl font-semibold text-teal-300">
+											<p className="text-2xl font-semibold text-primary">
 												{typeof latestReading?.humidity === "number" ? `${latestReading.humidity.toFixed(2)}%` : "—"}
 											</p>
 										</div>
