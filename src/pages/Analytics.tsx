@@ -601,8 +601,31 @@ const Analytics = () => {
 							{/* Temperature card - standard styling */}
 							<Card className="rounded-2xl">
 								<CardHeader>
-									<CardTitle>Temperature Reading</CardTitle>
-									<p className="text-sm text-muted-foreground">Current ambient temperature</p>
+									<div className="flex items-center justify-between">
+										<div>
+											<CardTitle>Temperature Reading</CardTitle>
+											<p className="text-sm text-muted-foreground">Current ambient temperature</p>
+										</div>
+										<Dialog>
+											<DialogTrigger asChild>
+												<button className="inline-flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 p-1 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2">
+													<Info className="h-4 w-4 text-muted-foreground" />
+												</button>
+											</DialogTrigger>
+											<DialogContent>
+												<DialogHeader>
+													<DialogTitle>Temperature Information</DialogTitle>
+													<DialogDescription>
+														Details about temperature measurement.
+													</DialogDescription>
+												</DialogHeader>
+												<div className="text-sm text-muted-foreground">
+													{/* Placeholder content */}
+													<p>Ambient air temperature is measured in degrees Celsius (°C). This reading helps in understanding the environmental conditions that may affect evaporation and soil moisture.</p>
+												</div>
+											</DialogContent>
+										</Dialog>
+									</div>
 								</CardHeader>
 								<CardContent>
 									<div className="flex items-center justify-between">
@@ -622,8 +645,31 @@ const Analytics = () => {
 							{/* Humidity card - standard styling */}
 							<Card className="rounded-2xl">
 								<CardHeader>
-									<CardTitle>Humidity Reading</CardTitle>
-									<p className="text-sm text-muted-foreground">Relative humidity</p>
+									<div className="flex items-center justify-between">
+										<div>
+											<CardTitle>Humidity Reading</CardTitle>
+											<p className="text-sm text-muted-foreground">Relative humidity</p>
+										</div>
+										<Dialog>
+											<DialogTrigger asChild>
+												<button className="inline-flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 p-1 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2">
+													<Info className="h-4 w-4 text-muted-foreground" />
+												</button>
+											</DialogTrigger>
+											<DialogContent>
+												<DialogHeader>
+													<DialogTitle>Humidity Information</DialogTitle>
+													<DialogDescription>
+														Details about humidity measurement.
+													</DialogDescription>
+												</DialogHeader>
+												<div className="text-sm text-muted-foreground">
+													{/* Placeholder content */}
+													<p>Relative humidity is expressed as a percentage, indicating the amount of moisture in the air relative to the maximum amount the air can hold at that temperature.</p>
+												</div>
+											</DialogContent>
+										</Dialog>
+									</div>
 								</CardHeader>
 								<CardContent>
 									<div className="flex items-center justify-between">
