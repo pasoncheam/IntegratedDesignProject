@@ -19,7 +19,7 @@ const Home = () => {
 					{/* Background image area */}
 					<div className="absolute inset-0 bg-black/50">
 						<img
-							src={ homeBackgroundImage }
+							src={homeBackgroundImage}
 							alt="rubbish placeholder"
 							className="h-full w-full object-cover"
 						/>
@@ -28,7 +28,7 @@ const Home = () => {
 
 					<div className="container mx-auto px-4 py-16 text-center">
 						<div className="inline-block mx-auto rounded-xl bg-background/70 dark:bg-background/60 backdrop-blur-sm px-6 py-6 shadow-lg">
-						<p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+							<p className="text-lg text-muted-foreground max-w-2xl mx-auto">
 								Welcome to
 							</p>
 							<h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3">
@@ -38,7 +38,7 @@ const Home = () => {
 								AURA (Autonomous Urban River Analyzer): AI-Integrated Urban River Analyzer for Real-Time Environmental Sensing and Beautification
 							</p>
 						</div>
-						
+
 					</div>
 				</section>
 
@@ -46,24 +46,22 @@ const Home = () => {
 					<div className="container mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 						<div className="overflow-hidden">
 							<AspectRatio ratio={3 / 3}>
-								<img src={ conceptualImage } alt="AURA prototype" className="h-full w-full object-contain" />
+								<img src={conceptualImage} alt="AURA prototype" className="h-full w-full object-contain" />
 							</AspectRatio>
-							<p className="text-sm text-muted-foreground -mt-[1px] ml-[110px] italic">
-								(Conceptual Image of AURA Prototype)
-							</p>
+
 						</div>
 
 						<div>
 							<h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Autonomous Urban River Analyzer (AURA)</h2>
 							<p className="text-muted-foreground leading-relaxed mb-6">
-								The <b>AURA</b> prototype aims to provides real-time monitoring of the river environemntalcondition, 
+								The <b>AURA</b> prototype aims to provides real-time monitoring of the river environemntalcondition,
 								increase public engagement and awarenes on urban rivers in a sustainable, scalable approach. <br></br><br></br>
-								Furthermore, the AURA prototype's purpose is to align with Klang River Festival (KRF) objectives by 
+								Furthermore, the AURA prototype's purpose is to align with Klang River Festival (KRF) objectives by
 								raising awareness about the importance of the river while offering engineering solutions to the community. <br></br><br></br>
-								The prototype is solar-powered with a set of useful features. Those features include detecting and capturing 
-								floating trash with a camera, measuring the water level of the river for flood monitoring, issuing flood alerts 
-								for early evacuation, and monitoring water quality. The prototype is set up beside the river under the sun in an 
-								open space to perform accurate measurements; with the prototype under the sun, it can acquire solar energy from the 
+								The prototype is solar-powered with a set of useful features. Those features include detecting and capturing
+								floating trash with a camera, measuring the water level of the river for flood monitoring, issuing flood alerts
+								for early evacuation, and monitoring water quality. The prototype is set up beside the river under the sun in an
+								open space to perform accurate measurements; with the prototype under the sun, it can acquire solar energy from the
 								solar panel.
 							</p>
 							<h3 className="text-xl font-semibold mb-3">Key Features</h3>
@@ -83,7 +81,7 @@ const Home = () => {
 									<EnquireNow defaultProduct="AURA Prototype" />
 								</div>
 							</div>
-							
+
 						</div>
 					</div>
 				</section>
@@ -119,24 +117,24 @@ const Home = () => {
 						</p>
 						<div className="max-w-4xl mx-auto">
 							<AspectRatio ratio={16 / 9}>
-							<iframe
-								src="https://www.youtube.com/embed/LPiuKPEgd24"
-								title="Project AURA Intro Video"
-								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-								allowFullScreen
-								className="w-full h-full rounded-lg border"
-							></iframe>
+								<iframe
+									src="https://www.youtube.com/embed/LPiuKPEgd24"
+									title="Project AURA Intro Video"
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+									allowFullScreen
+									className="w-full h-full rounded-lg border"
+								></iframe>
 							</AspectRatio>
 							{/*<p className="text-xs text-muted-foreground mt-2 text-center">
 								Replace <code>/intro.mp4</code> with your actual video file or hosting URL.
 							</p>*/}
 						</div>
 					</div>
-					
+
 				</section>
 
 				<LocationMap />
-				
+
 			</main>
 
 			<Footer />
