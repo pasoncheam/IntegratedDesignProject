@@ -1,5 +1,5 @@
 {
-    "timestamp": "2025-12-26 14:45:26",
+    "timestamp": "2025-12-26 15:02:23",
     "prediction": 0,
     "probability": null,
     "model_used": "SVM",
@@ -8,6 +8,6 @@
         "rainfall": 0.0,
         "humidity": 0.0,
         "temperature": 0.0,
-        "water_level": 130.2
+        "water_level": 138.0
     }
 }
