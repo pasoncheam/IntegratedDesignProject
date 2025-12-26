@@ -1,12 +1,5 @@
 [
   {
-    "id": "12jbWmVEzauhm1WRb8P0NAhIhK3_5oa34",
-    "url": "detected_waste_photos/12jbWmVEzauhm1WRb8P0NAhIhK3_5oa34.jpg",
-    "date": "2025-12-26",
-    "time": "14:58:01",
-    "original_name": "20251226065800-image.jpg"
-  },
-  {
     "id": "1wz0YDdSFREqjDJA7-cWIxoVAhget19rt",
     "url": "detected_waste_photos/1wz0YDdSFREqjDJA7-cWIxoVAhget19rt.jpg",
     "date": "2025-12-26",
@@ -40,5 +33,12 @@
     "date": "2025-12-26",
     "time": "14:49:17",
     "original_name": "20251226064916-image.jpg"
+  },
+  {
+    "id": "1DHDdxG-bTFqqLJDlWTcUSaJmepL_GImI",
+    "url": "detected_waste_photos/1DHDdxG-bTFqqLJDlWTcUSaJmepL_GImI.jpg",
+    "date": "2025-12-26",
+    "time": "14:39:17",
+    "original_name": "20251226063916-image.jpg"
   }
 ]
