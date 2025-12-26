@@ -619,9 +619,17 @@ const Analytics = () => {
 														Details about temperature measurement.
 													</DialogDescription>
 												</DialogHeader>
-												<div className="text-sm text-muted-foreground">
-													{/* Placeholder content */}
-													<p>Ambient air temperature is measured in degrees Celsius (°C). This reading helps in understanding the environmental conditions that may affect evaporation and soil moisture.</p>
+												<div className="text-sm text-muted-foreground space-y-2">
+													<p><strong>Daily Mean Temperature:</strong> 28°C (Medium: 26-30°C)</p>
+													<p><strong>Daily Minimum:</strong> 23°C (Low: 23-26°C)</p>
+													<p><strong>Daily Maximum:</strong> 32°C (High: &gt;30°C)</p>
+													<div className="pt-2 text-xs border-t">
+														<p className="font-semibold mb-1">Sources:</p>
+														<ul className="list-disc pl-4 space-y-1">
+															<li><a href="https://doi.org/10.1080/22797254.2018.1542976" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">DOI: 10.1080 (2018)</a></li>
+															<li><a href="https://weatherspark.com/y/113829/Average-Weather-in-Kuala-Lumpur-Malaysia-Year-Round" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">WeatherSpark KL</a></li>
+														</ul>
+													</div>
 												</div>
 											</DialogContent>
 										</Dialog>
@@ -663,9 +671,18 @@ const Analytics = () => {
 														Details about humidity measurement.
 													</DialogDescription>
 												</DialogHeader>
-												<div className="text-sm text-muted-foreground">
-													{/* Placeholder content */}
-													<p>Relative humidity is expressed as a percentage, indicating the amount of moisture in the air relative to the maximum amount the air can hold at that temperature.</p>
+												<div className="text-sm text-muted-foreground space-y-2">
+													<p><strong>High:</strong> Above 65% (Risk of mold, above ASHRAE 55 max comfort)</p>
+													<p><strong>Low:</strong> Below 30% (Discomfort, rare in Malaysia)</p>
+													<p><strong>Comfortable:</strong> &lt;55% (ASHRAE 55) or 40-70% (MS 1525)</p>
+													<p><strong>Annual Average:</strong> 70-90% (Monthly min avg ~56%)</p>
+													<div className="pt-2 text-xs border-t">
+														<p className="font-semibold mb-1">Sources:</p>
+														<ul className="list-disc pl-4 space-y-1">
+															<li><a href="https://www.planningmalaysia.org/index.php/pmj/article/download/1808/1484/2784" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Planning Malaysia Journal</a></li>
+															<li><a href="https://doi.org/10.1080/22797254.2018.1542976" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">DOI: 10.1080 (2018)</a></li>
+														</ul>
+													</div>
 												</div>
 											</DialogContent>
 										</Dialog>

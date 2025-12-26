@@ -33,9 +33,32 @@ const RainMeter = ({ rainfall, last24h = 0 }: RainMeterProps) => {
                 Details about how rainfall is measured.
               </DialogDescription>
             </DialogHeader>
-            <div className="text-sm text-muted-foreground">
-              {/* Placeholder content */}
-              <p>Rainfall is measured in millimeters (mm) using a tipping bucket rain gauge. The value represents the accumulated precipitation over the specified period.</p>
+            <div className="text-sm text-muted-foreground space-y-2">
+              <div>
+                <p className="font-semibold">Hourly Rainfall (mm):</p>
+                <ul className="list-disc pl-4">
+                  <li>Light: 1-10</li>
+                  <li>Moderate: 11-30</li>
+                  <li>Heavy: 31-60</li>
+                  <li>Very Heavy: &gt;60</li>
+                </ul>
+              </div>
+              <div>
+                <p className="font-semibold">Daily Rainfall (mm):</p>
+                <ul className="list-disc pl-4">
+                  <li>Slight: &lt;50</li>
+                  <li>Moderate: 50-99</li>
+                  <li>Heavy: 100-149</li>
+                  <li>Intense: &ge;150</li>
+                </ul>
+              </div>
+              <div className="pt-2 text-xs border-t">
+                <p className="font-semibold mb-1">Sources:</p>
+                <ul className="list-disc pl-4 space-y-1">
+                  <li><a href="https://publicinfobanjir.water.gov.my/hujan/data-hujan/?state=WLH&lang=en" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">PublicInfoBanjir Rainfall</a></li>
+                  <li><a href="https://www.met.gov.my/data/research/researchpapers/2024/TN01_2024.pdf" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">MET Malaysia (TN01 2024)</a></li>
+                </ul>
+              </div>
             </div>
           </DialogContent>
         </Dialog>

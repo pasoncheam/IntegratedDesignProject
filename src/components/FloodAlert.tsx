@@ -34,9 +34,34 @@ const FloodAlert = ({ waterLevel, timestamp }: FloodAlertProps) => {
                 Details about how water level is measured and interpreted.
               </DialogDescription>
             </DialogHeader>
-            <div className="text-sm text-muted-foreground">
-              {/* Placeholder content */}
-              <p>Water level readings are taken from the sensor installed at the monitoring station. This metric indicates the current height of the water surface relative to a fixed datum.</p>
+            <div className="text-sm text-muted-foreground space-y-2">
+              <p><strong>Station:</strong> Sg. Klang At Jambatan Petaling</p>
+              <p className="text-xs text-muted-foreground/80">(Lat: 3.080844, Long: 101.663764)</p>
+              <div className="grid grid-cols-2 gap-2 mt-2">
+                <div className="p-2 rounded bg-emerald-100 dark:bg-emerald-900/30">
+                  <span className="font-semibold text-emerald-700 dark:text-emerald-400">Normal</span>
+                  <div className="text-lg">14.00 m</div>
+                </div>
+                <div className="p-2 rounded bg-yellow-100 dark:bg-yellow-900/30">
+                  <span className="font-semibold text-yellow-700 dark:text-yellow-400">Alert</span>
+                  <div className="text-lg">16.81 m</div>
+                </div>
+                <div className="p-2 rounded bg-orange-100 dark:bg-orange-900/30">
+                  <span className="font-semibold text-orange-700 dark:text-orange-400">Warning</span>
+                  <div className="text-lg">17.81 m</div>
+                </div>
+                <div className="p-2 rounded bg-red-100 dark:bg-red-900/30">
+                  <span className="font-semibold text-red-700 dark:text-red-400">Danger</span>
+                  <div className="text-lg">18.81 m</div>
+                </div>
+              </div>
+              <div className="pt-2 text-xs border-t">
+                <p className="font-semibold mb-1">Sources:</p>
+                <ul className="list-disc pl-4 space-y-1">
+                  <li><a href="https://publicinfobanjir.water.gov.my/wl-graph/?stationid=26519&lang=en" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">PublicInfoBanjir Station 26519</a></li>
+                  <li><a href="https://mywater.gov.my/Portal/Modules/Telemetri/Index.aspx?Q=DGQF08iEj5A=" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">MyWater Telemetry</a></li>
+                </ul>
+              </div>
             </div>
           </DialogContent>
         </Dialog>
