@@ -1,5 +1,19 @@
 [
   {
+    "id": "1E72uy7JmYvbr2dJdvVvp5hNVc0dWU75G",
+    "url": "detected_waste_photos/1E72uy7JmYvbr2dJdvVvp5hNVc0dWU75G.jpg",
+    "date": "2025-12-26",
+    "time": "09:33:52",
+    "original_name": "20251226013351-image.jpg"
+  },
+  {
+    "id": "1thVoiE1OXiDwmzF667HDJqUExa8cgaya",
+    "url": "detected_waste_photos/1thVoiE1OXiDwmzF667HDJqUExa8cgaya.jpg",
+    "date": "2025-12-26",
+    "time": "09:33:44",
+    "original_name": "20251226013343-image.jpg"
+  },
+  {
     "id": "1t_6Iw9H_eJHIKBbwGkkcMl1zqysgxN2P",
     "url": "detected_waste_photos/1t_6Iw9H_eJHIKBbwGkkcMl1zqysgxN2P.jpg",
     "date": "2025-12-26",
@@ -26,19 +40,5 @@
     "date": "2025-12-26",
     "time": "09:27:51",
     "original_name": "20251226012750-image.jpg"
-  },
-  {
-    "id": "1uJecgs4pMxaW_Gb_lSFdigMIHrbAVVvI",
-    "url": "detected_waste_photos/1uJecgs4pMxaW_Gb_lSFdigMIHrbAVVvI.jpg",
-    "date": "2025-12-26",
-    "time": "09:27:45",
-    "original_name": "20251226012744-image.jpg"
-  },
-  {
-    "id": "1-DI17-qE3H0Z0CjFhWvVmKcbiZtK7z04",
-    "url": "detected_waste_photos/1-DI17-qE3H0Z0CjFhWvVmKcbiZtK7z04.jpg",
-    "date": "2025-12-26",
-    "time": "09:27:38",
-    "original_name": "20251226012737-image.jpg"
   }
 ]
