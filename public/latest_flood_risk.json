@@ -1,13 +1,13 @@
 {
-    "timestamp": "2025-12-28 22:46:14",
+    "timestamp": "2025-12-28 22:58:04",
     "prediction": 0,
     "probability": null,
     "model_used": "SVM",
     "model_accuracy": 0.527,
     "input_data": {
-        "rainfall": 0.0,
-        "humidity": 0.0,
-        "temperature": 0.0,
-        "water_level": 138.0
+        "rainfall": 10.0,
+        "humidity": 60.5,
+        "temperature": 25.5,
+        "water_level": 75.0
     }
 }
