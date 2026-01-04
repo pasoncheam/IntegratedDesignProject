@@ -118,7 +118,7 @@ const Home = () => {
 						<div className="max-w-4xl mx-auto">
 							<AspectRatio ratio={16 / 9}>
 								<iframe
-									src="https://www.youtube.com/embed/LPiuKPEgd24"
+									src="https://www.youtube.com/embed/bKPGFJ3YbDc"
 									title="Project AURA Intro Video"
 									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 									allowFullScreen
