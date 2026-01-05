@@ -1,5 +1,19 @@
 [
   {
+    "id": "1wcgMqmztPpuhLvx_jYsPCJMRJ3oggOcg",
+    "url": "detected_waste_photos/1wcgMqmztPpuhLvx_jYsPCJMRJ3oggOcg.jpg",
+    "date": "2026-01-05",
+    "time": "16:03:19",
+    "original_name": "20260105080318-image.jpg"
+  },
+  {
+    "id": "1-g0c2vwjkIbWw3OryX1wDWa6B-I1_FZE",
+    "url": "detected_waste_photos/1-g0c2vwjkIbWw3OryX1wDWa6B-I1_FZE.jpg",
+    "date": "2026-01-05",
+    "time": "16:03:03",
+    "original_name": "20260105080302-image.jpg"
+  },
+  {
     "id": "1l2CODEvUnFA4QuqzlyvrhJe2Wt2yCHU7",
     "url": "detected_waste_photos/1l2CODEvUnFA4QuqzlyvrhJe2Wt2yCHU7.jpg",
     "date": "2026-01-05",
@@ -26,19 +40,5 @@
     "date": "2026-01-05",
     "time": "15:59:50",
     "original_name": "20260105075950-image.jpg"
-  },
-  {
-    "id": "1NQiR1c4LaxJwDQhIhskx_OVUTa9mJ9vG",
-    "url": "detected_waste_photos/1NQiR1c4LaxJwDQhIhskx_OVUTa9mJ9vG.jpg",
-    "date": "2026-01-05",
-    "time": "15:59:43",
-    "original_name": "20260105075942-image.jpg"
-  },
-  {
-    "id": "1-D3qsOX2xyPen-0a9eFGoK6plBVgaH-0",
-    "url": "detected_waste_photos/1-D3qsOX2xyPen-0a9eFGoK6plBVgaH-0.jpg",
-    "date": "2026-01-05",
-    "time": "15:59:29",
-    "original_name": "20260105075928-image.jpg"
   }
 ]
