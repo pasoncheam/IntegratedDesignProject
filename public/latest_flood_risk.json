@@ -1,13 +1,13 @@
 {
-    "timestamp": "2026-01-05 15:58:22",
+    "timestamp": "2026-01-05 16:46:54",
     "prediction": 0,
     "probability": null,
     "model_used": "SVM",
     "model_accuracy": 0.527,
     "input_data": {
-        "rainfall": 10.0,
-        "humidity": 60.5,
-        "temperature": 25.5,
-        "water_level": 75.0
+        "rainfall": 0.0,
+        "humidity": 0.0,
+        "temperature": 0.0,
+        "water_level": 162.7
     }
 }
