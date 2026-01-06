@@ -204,6 +204,7 @@ const Analytics = () => {
 
 
 
+	// calculate data for the charts
 	const chartData = useMemo<ChartDatum[]>(() => {
 		if (!readingsForCharts.length) return [];
 
@@ -325,6 +326,7 @@ const Analytics = () => {
 	}
 
 	// Fetch the latest ML prediction
+	// get the latest flood prediction from ai
 	useEffect(() => {
 		setInsightLoading(true);
 		// Prepend base URL to fetching from public folder in production

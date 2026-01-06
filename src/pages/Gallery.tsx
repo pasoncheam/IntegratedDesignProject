@@ -27,7 +27,7 @@ const Gallery = () => {
   const [photos] = useState<Photo[]>(photosData as Photo[]);
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
 
-  // --- Statistics Calculation ---
+  // calculate how much trash we found
   const stats = useMemo(() => {
     // 1. Daily Counts
     const dailyMap = new Map<string, number>();
@@ -41,7 +41,7 @@ const Gallery = () => {
       .map(([date, count]) => ({ date, count }))
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-    // 2. Hourly Counts
+    // 2. Hourly Counts - see when trash comes heavily
     const hourlyMap = new Map<number, number>();
     // Initialize all 24 hours to 0 for a complete chart
     for (let i = 0; i < 24; i++) hourlyMap.set(i, 0);

@@ -9,6 +9,7 @@ import conceptualImage from "./conceptualImage.png";
 import EnquireNow from "@/components/EnquireNow";
 import LocationMap from "@/components/LocationMap";
 
+// main page of the website
 const Home = () => {
 	return (
 		<div className="min-h-screen flex flex-col">

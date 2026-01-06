@@ -4,12 +4,14 @@ import sys
 
 def archive_history():
     # Paths (relative to where script is run, usually root of repo in CI)
+    # get the paths for the json files
     PHOTOS_JSON_PATH = os.path.join("public", "detected_waste_photos", "photos.json")
     HISTORY_JSON_PATH = os.path.join("public", "detected_waste_photos", "waste_history.json")
 
     print(f"Checking for new photos in {PHOTOS_JSON_PATH}...")
 
-    # 1. Load current limited photos
+    
+    # 1. load the current list of photos
     current_photos = []
     if not os.path.exists(PHOTOS_JSON_PATH):
         print(f"No photos.json found at {PHOTOS_JSON_PATH}. Initializing empty history.")
@@ -20,7 +22,7 @@ def archive_history():
         except json.JSONDecodeError:
             print("Error decoding photos.json. Initializing empty history.")
 
-    # 2. Load existing history or initialize
+    # 2. load the old history or make a new one
     if os.path.exists(HISTORY_JSON_PATH):
         try:
             with open(HISTORY_JSON_PATH, "r") as f:
@@ -44,7 +46,7 @@ def archive_history():
             new_count += 1
             print(f"Archived new photo: {photo['id']} ({photo['date']} {photo['time']})")
 
-    # 4. Save history if changes made OR if file doesn't exist yet
+    # 4. save history if we added something new
     if new_count > 0 or not os.path.exists(HISTORY_JSON_PATH):
         # Sort by date/time newly (optional but good for consistency)
         # Using simple string comparison for date+time which works for ISO-like formats

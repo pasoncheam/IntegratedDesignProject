@@ -9,9 +9,11 @@ import ThemeToggle from "./ThemeToggle";
 const Navigation = () => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
-  
+
+  // check if the link is active
   const isActive = (path: string) => location.pathname === path;
-  
+
+  // list of pages for the menu
   const navLinks = [
     { path: "/", label: "Home" },
     { path: "/analytics", label: "Flood Risk Prediction" },
@@ -20,18 +22,18 @@ const Navigation = () => {
     { path: "/support", label: "Support" },
     { path: "/about", label: "About us" },
   ];
-  
+
   return (
     <nav className="border-b border-border bg-background sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3">
             <div className="w-14 h-14 rounded-lg overflow-hidden flex items-center justify-center">
-                <img 
-                  src={AuraByteLogo} 
-                  alt="AURA Logo" 
-                  className="w-full h-full object-contain"
-                  
+              <img
+                src={AuraByteLogo}
+                alt="AURA Logo"
+                className="w-full h-full object-contain"
+
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.style.display = 'none';
@@ -44,7 +46,7 @@ const Navigation = () => {
             </div>
             <span className="text-2xl font-bold tracking-tight">Project AURA</span>
           </Link>
-          
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-2">
             {navLinks.map((link) => (
@@ -63,8 +65,9 @@ const Navigation = () => {
             ))}
             <ThemeToggle />
           </div>
-          
+
           {/* Mobile Navigation */}
+          {/* menu for phone screens */}
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger className="md:hidden">
               <Menu className="h-6 w-6" />

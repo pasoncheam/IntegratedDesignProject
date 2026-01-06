@@ -14,6 +14,7 @@ type FloodAlertProps = {
   timestamp?: number; // epoch ms or millis()
 };
 
+// show the big water level number and warning
 const FloodAlert = ({ waterLevel, timestamp }: FloodAlertProps) => {
   // const dangerThreshold = 4.0; // Keeping logic if needed for other things, but unused for styling now
 

@@ -26,6 +26,7 @@ firebase_admin.initialize_app(cred, {
 # Fetch Sensor Data From Firebase
 # -------------------------------
 def get_sensor_data():
+    # fetch data from sensors/latest
     ref = db.reference("sensors/latest")
     data = ref.get()
     return data
@@ -41,6 +42,7 @@ def main():
         return
 
     # Extract specific fields to ensure only relevant data is stored
+    # get the values we need and add timestamp
     sensor_reading = {
         'humidity': float(data.get('humidity', 0)),
         'rainfall': float(data.get('rainfall', 0)),
@@ -77,6 +79,7 @@ def main():
         df = df.tail(1001)
         
     # Save back to CSV
+    # save to csv file
     df.to_csv(csv_file, index=False)
     print(f"Data appended. Total rows: {len(df)}")
 

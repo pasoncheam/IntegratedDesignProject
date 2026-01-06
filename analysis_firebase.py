@@ -21,6 +21,7 @@ except ValueError:
     })
 '''
 # Load Firebase key from environment variable
+# check if key exists
 firebase_key_json = os.environ.get("FIREBASE_KEY")
 if not firebase_key_json:
     raise ValueError("FIREBASE_KEY not found in environment variables!")
@@ -28,6 +29,7 @@ if not firebase_key_json:
 # Convert string to dictionary
 firebase_key_dict = json.loads(firebase_key_json)
 
+# connect to firebase
 cred = credentials.Certificate(firebase_key_dict)
 firebase_admin.initialize_app(cred, {
     "databaseURL": "https://aura-data-cb5bf-default-rtdb.asia-southeast1.firebasedatabase.app"
@@ -35,12 +37,14 @@ firebase_admin.initialize_app(cred, {
 # -------------------------------
 # Load Model
 # -------------------------------
+# load our trained ai model
 model = joblib.load("flood_unsupervised.pkl")
 
 # -------------------------------
 # Fetch Sensor Data From Firebase
 # -------------------------------
 def get_sensor_data():
+    # get latest data from sensor path
     ref = db.reference("sensors/latest")
     data = ref.get()
     return data

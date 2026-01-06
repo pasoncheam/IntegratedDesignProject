@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import QRCode from "./pasonQRCode.jpg";
 
+// support page for donations
 const Support = () => {
 	return (
 		<div className="min-h-screen flex flex-col">
@@ -33,7 +34,7 @@ const Support = () => {
 								<div className="mx-auto max-w-xs">
 									<div className="rounded-xl border bg-background p-4">
 										{/* Replace with your QR image */}
-										<img src={ QRCode } alt="QR code" className="w-full h-auto object-contain" />
+										<img src={QRCode} alt="QR code" className="w-full h-auto object-contain" />
 									</div>
 								</div>
 							</div>

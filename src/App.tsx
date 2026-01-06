@@ -13,6 +13,7 @@ import Information from "./pages/Information";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 
+// setup react query for data fetching
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -22,8 +23,10 @@ const App = () => (
         <Toaster />
         <Sonner />
         <HashRouter>
+          {/* scroll to top when changing pages */}
           <ScrollToTop />
           <Routes>
+            {/* main pages of the website */}
             <Route path="/" element={<Home />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/support" element={<Support />} />

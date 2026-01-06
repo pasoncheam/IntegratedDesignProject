@@ -13,6 +13,7 @@ export default {
       },
     },
     extend: {
+      // custom colors for the website theme
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
